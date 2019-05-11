@@ -9,6 +9,7 @@ Este projeto foi criado para a disciplina engenharia de software 3 com o objetiv
 * Anna
 * Camilla
 * Eusébio
+* Isabel
 * Kaleby
 * Naomi
 * Rafael
