@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class Conexao
 {	
 	//atributos de banco de dados
@@ -77,8 +77,8 @@ class Conexao
 			return self::$conexao;
 		}
 
-		//self::SetAtributoBD("devdatabase.mysql.dbaas.com.br", "devdatabase", "Bolado@123", "devdatabase");
-		self::SetAtributoBD("127.0.0.1:".self::$porta, "root", "r78978rrrdqr", "devdatabase");
+		self::SetAtributoBD("devdatabase.mysql.dbaas.com.br", "devdatabase", "Bolado@123", "devdatabase");
+		//self::SetAtributoBD("127.0.0.1:".self::$porta, "root", "r78978rrrdqr", "devdatabase");
 
 		self::SetConexao();
 

@@ -28,6 +28,6 @@ $dadosScore = Conexao::ExecutarQuery($sqlScore, $param);
 
 $_SESSION['user']['score'] = $dadosScore[1]['score'];
 
-$sqlTema = "SELECT * FROM forca_tema";
+$sqlTema = "SELECT * FROM forca_tema a INNER JOIN forca_palavra b ON a.id_tema = b.id_tema";
 $dadosTema = Conexao::ExecutarQuery($sqlTema);
 ?>
