@@ -1,8 +1,12 @@
-<?php session_start();?>
+﻿<?php session_start();?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<!-- meta tags -->
+
+    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -11,6 +15,9 @@
 
     <!-- canvasjs -->
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <!-- Normalizar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous">    
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -217,26 +224,37 @@
     @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline|Montserrat|Roboto');
 
     body{
-        background-image: url(https://wallpapercave.com/wp/1DNguiE.png);
-        background-size: cover;
+	   background-image: url(img/fundo.jpg);
+        background-size: 100% 100%;
         font-family: 'Montserrat', sans-serif;
     }
     .dashboard {
         background-color: white;
-        padding: 25px; 
-        border-radius: 5px;
+        padding: 5px; 
+        border-radius: 15px;        
     }
 
     .dashboard-form {
         background-color: white;
-        padding: 25px; 
+        padding: 5px; 
         border-radius: 5px;
-        box-shadow: 0px 10px 10px 1px #888888;
+        box-shadow: 0px 5px 5px 1px #888888;
+    }
+
+    .dashboard-tips {
+        background-image: url(img/painel.jpg);
+        background-size: cover;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 18px;
+        text-shadow: 1px 1px 1px black;  
+        color: #F0FFF0;
+        border-image: url(img/corda.jpg) 5 / 5px repeat; 
     }
 
     .title {
         font-family: 'Fascinate Inline', cursive;
-        font-size: 62px;
+        font-size: 35px;
     }
     
     .jogo{
@@ -244,7 +262,7 @@
             color: white;
             height: 100%;
             overflow: hidden;
-            padding: 35px;
+            padding: 30px;
             font-weight: bold;
             font-size: 30px;
             width: 33%;
@@ -261,10 +279,50 @@
             cursor:pointer;
         }
 
+
 </style>
 
 </head>
+<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:3px;margin-bottom:-20px;">
+    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-image: url(img/corda.jpg) 7 / 7px repeat;">
+                <div class="row">
+                    <div class="column" align="center">
+                        <img src="img/logo.png" alt="Jogo da Forca" width=351 height=100 style="margin-left: 50px;">    
+                    </div>              
+                    <div class="column" align="center" style="margin-top: 15px;margin-left:400px;">
+                        <div class="row" >
+                            <?php if(isset($_SESSION['user'])):?>
+                            Bem vindo <?=$_SESSION['user']['nome'] ?>.
+                            &nbsp;
+                            &nbsp;
+                            <?=$_SESSION['user']['creditos'] ?>
+                            <?php endif?> 
+                            
 
-
+                        </div>          
+                        <div class="row" >
+                            <?php if(isset($_SESSION['user'])):?>
+                            Sua pontuação é de <?=$_SESSION['user']['score']?> vitórias 
+                            <?php endif?>
+                        </div>  
+                        <div class="row" >
+                            <?php if(isset($_SESSION['user'])):?>
+                            <a href="lib/php/logout.php">Sair</a>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;                  
+                            <a href="#">Perfil</a>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;                  
+                                <?php if($_SESSION['user']['perfil'] == "adm"):?>
+                                    <a href="cadastros-listas.php">Painel Administrativo</a>                                    
+                                <?php endif?>
+                            <?php endif?>
+                        </div>                        
+                    </div>
+                </div>              
+    </div>
+</div>
     
 

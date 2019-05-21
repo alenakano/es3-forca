@@ -1,6 +1,12 @@
-<?php 
+﻿<?php 
 include_once("lib/php/header.php");
 include_once("lib/php/conexao.dao.php");
+
+if(isset($_SESSION['user']))
+{
+	echo "<script>location.href = 'menu.php';</script>";
+}
+
 
 $sqlMelhoresJogadores = 
 	"SELECT * from forca_score s, forca_usuario u 
@@ -84,16 +90,10 @@ $score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
 
 </script>
 
-<body>
-	
-<div class="container dashboard" style="background-color: white; padding: 25px; margin-top: 4%;">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12" align="center">
-				<h1 class="title">JOGO DA FORCA</h1>	
-			</div>
-		</div>
-		<br>
+<body>	
+
+<div class="container"  style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">
+	<div class="dashboard" align="center">			
 		<div class="row">
 			<div class="col-sm-5">
 				<div class="form-group dashboard-form">
@@ -146,7 +146,6 @@ $score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
 		</div>
 	</div>	
 </div>
-<br><br>
 
 <!-- Modal -->
 <div class="modal fade" id="formCadastroModal" tabindex="-1" role="dialog" aria-labelledby="formCadastroModalTitulo" aria-hidden="true">

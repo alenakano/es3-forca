@@ -7,6 +7,11 @@ if(!isset($_SESSION['user']))
 	echo "<script>location.href = 'index.php';</script>";
 }
 
+if($_SESSION['user']['perfil'] != "adm")
+{	
+	echo "<script>location.href = 'menu.php';</script>";
+}
+
 $sqlListaTema = "SELECT * FROM forca_tema ORDER BY TEMA ASC";
 $sqlListaPalavra = "SELECT * FROM forca_palavra p, forca_tema t WHERE t.ID_TEMA = p.ID_TEMA ORDER BY PALAVRA ASC";
 $sqlUsuario = "SELECT * FROM forca_usuario";
@@ -260,9 +265,7 @@ $dadosUsuario = Conexao::ExecutarQuery($sqlUsuario);
 <div class="container dashboard" style="margin-top: 2%; ">
 	<div class="row">
 		<div class="col-sm-12">
-			<span>Bem vindo administrador <?=$_SESSION['user']['nome']?> </span>&nbsp;&nbsp;
-			<a href="lib/php/logout.php">Sair</a> &nbsp;&nbsp;
-			<a href="#">Perfil</a>&nbsp;&nbsp;
+			<span>Bem vindo administrador <?=$_SESSION['user']['nome']?> </span>&nbsp;&nbsp;			
 			<button class="btn btn-success" style="padding: 4px;" onclick="AbrirMenu();">Menu Principal</button>
 		</div>
 	</div>

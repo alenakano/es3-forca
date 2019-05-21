@@ -27,6 +27,7 @@ if(isset($_REQUEST['login'], $_REQUEST['senha']))
         $_SESSION['user']['perfil'] = $dados[$linha]['perfil'];
         $_SESSION['user']['score'] = $dados[$linha]['score'];
         
+        
         if($_SESSION['user']['perfil'] == "adm")
         {
             echo "adm";

@@ -8,8 +8,9 @@ $sql =
         forca_tema T, 
         forca_usuario U
     WHERE 
-        S.ID_TEMA = T.ID_TEMA AND
-        S.ID_USUARIO = U.ID_USUARIO;";
+        S.ID_TEMA = T.ID_TEMA AND        
+        S.ID_USUARIO = U.ID_USUARIO AND S.SALA_FINALIZADA = '';";
+        //Thiago adiciou o codigo da SALA_FINALIZADA acima
 
 $dadosSessao = Conexao::ExecutarQuery($sql);
 

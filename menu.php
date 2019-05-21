@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include("lib/php/header.php");
 include("lib/php/conexao.dao.php");
 
@@ -12,10 +12,11 @@ include_once("lib/php/monta-sessao.php");
 
 <style>
     .jogo{
+        text-align: center;        
         color: white;
-        height: 100%;
+        height: 20%;
         overflow: hidden;
-        padding: 35px;
+        padding: 10px;
         font-weight: bold;
         font-size: 20px;
         width: 33%;
@@ -92,30 +93,20 @@ include_once("lib/php/monta-sessao.php");
     }
 </script>
 
-<div class="container">
-    <div class="dashboard" style="margin-top: 3%;">
-        Bem vindo <?=$_SESSION['user']['nome']?>. &nbsp;Sua pontuação é de <?=$_SESSION['user']['score']?> vitórias 
-        &nbsp;&nbsp;
-        <a href="lib/php/logout.php">Sair</a>
-        &nbsp;&nbsp;
-        <a href="#">Perfil</a>
-        &nbsp;&nbsp;
-        <?php if($_SESSION['user']['perfil'] == "adm"):?>
-        <button class="btn btn-success" onclick="PaginaAdministracao();">Painel Administrativo</button>
-        <?php endif?>  
-    </div>
+<body>
 
-    <div class="dashboard" style="margin-top: 2%;" >
+<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">       
+
+    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;align-items: center;" >
         <div style="width: 100%;">
-            <span class="title">
+            <span class="title" style="text-align: center;">
                 <h1>
                     Salas Disponiveis: 
                     &nbsp;&nbsp;<button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
                     &nbsp;<button class="btn btn-danger" onclick="AtualizarJogos()">Atualizar Jogos</button>
                 </h1>
-            </span>  
-        </div>
-        <br>
+            </span>            
+        </div>         
         
         <?php $i = 1; while($i <= count($dadosSessao)): ?>
         
@@ -146,6 +137,7 @@ include_once("lib/php/monta-sessao.php");
         <?php endif?>
 
         <?php $i++; endwhile?>
+
     </div>
 </div>
 
@@ -187,3 +179,4 @@ include_once("lib/php/monta-sessao.php");
     </div>
   </div>
 </div>
+</body>
