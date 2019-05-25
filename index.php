@@ -1,4 +1,5 @@
 ﻿<?php 
+
 include_once("lib/php/header.php");
 include_once("lib/php/conexao.dao.php");
 
@@ -6,6 +7,7 @@ if(isset($_SESSION['user']))
 {
 	echo "<script>location.href = 'menu.php';</script>";
 }
+
 
 
 $sqlMelhoresJogadores = 

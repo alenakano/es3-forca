@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Maio-2019 às 00:36
+-- Generation Time: 25-Maio-2019 às 19:15
 -- Versão do servidor: 10.1.39-MariaDB
 -- versão do PHP: 7.3.5
 
@@ -40,7 +40,7 @@ CREATE TABLE `forca_palavra` (
 --
 
 INSERT INTO `forca_palavra` (`id_palavra`, `palavra`, `id_tema`, `dicas`) VALUES
-(2, 'MICROFONE', 2, 'CANTAR,FERRO,SOM');
+(3, 'MICROFONE', 2, 'CANTAR,FERRO,SOM');
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,6 @@ CREATE TABLE `forca_sala` (
   `id_adversario` int(11) NOT NULL,
   `id_vencedor` int(11) NOT NULL,
   `id_palavra` int(11) NOT NULL,
-  `letras_escolhidas` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `erros_usuario` int(2) NOT NULL,
   `erros_adversario` int(2) NOT NULL,
   `id_jogador_vez` int(11) NOT NULL,
@@ -71,8 +70,8 @@ CREATE TABLE `forca_sala` (
 -- Extraindo dados da tabela `forca_sala`
 --
 
-INSERT INTO `forca_sala` (`id_sala`, `id_tema`, `privada`, `id_usuario`, `senha_sala`, `data_criacao`, `id_adversario`, `id_vencedor`, `id_palavra`, `letras_escolhidas`, `erros_usuario`, `erros_adversario`, `id_jogador_vez`, `sala_finalizada`, `dicas_adversario`, `dicas_usuario`) VALUES
-(11, 2, 'n', 5, '', '0000-00-00', 3, 0, 2, '', 3, 2, 5, '', 1, 1);
+INSERT INTO `forca_sala` (`id_sala`, `id_tema`, `privada`, `id_usuario`, `senha_sala`, `data_criacao`, `id_adversario`, `id_vencedor`, `id_palavra`, `erros_usuario`, `erros_adversario`, `id_jogador_vez`, `sala_finalizada`, `dicas_adversario`, `dicas_usuario`) VALUES
+(33, 2, 'n', 5, '', '0000-00-00', 9, 0, 3, 0, 0, 5, '', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -91,11 +90,8 @@ CREATE TABLE `forca_sala_letras` (
 --
 
 INSERT INTO `forca_sala_letras` (`id_sala`, `letra`, `id_jogador`) VALUES
-(11, 'E', 5),
-(11, 'F', 5),
-(11, 'M', 7),
-(11, 'O', 5),
-(11, 'X', 7);
+(32, 'I', 9),
+(32, 'Z', 9);
 
 -- --------------------------------------------------------
 
@@ -247,7 +243,7 @@ ALTER TABLE `forca_palavra`
 -- AUTO_INCREMENT for table `forca_sala`
 --
 ALTER TABLE `forca_sala`
-  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `forca_score`

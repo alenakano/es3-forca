@@ -1,13 +1,25 @@
 ﻿<?php
+
+
 include("lib/php/header.php");
 include("lib/php/conexao.dao.php");
 
+
 if(!isset($_SESSION['user']))
 {
-	echo "<script>location.href = 'index.php';</script>";
+    echo "<script>location.href = 'index.php';</script>";
 }
 
 include_once("lib/php/monta-sessao.php");
+
+$i = 1; 
+while($i <= count($dadosSessao)){
+    if($dadosSessao[$i]['id_usuario'] == $_SESSION['user']['id_usuario'] || $dadosSessao[$i]['id_adversario'] == $_SESSION['user']['id_usuario']){
+        echo "<script>location.href = 'sala.php';</script>";
+    }
+ $i++;   
+}
+
 ?>
 
 <style>
@@ -33,65 +45,6 @@ include_once("lib/php/monta-sessao.php");
     }
 </style>
 
-<script>
-    function PaginaAdministracao()
-    {
-        location.href = 'cadastros-listas.php';
-    }
-
-    function AbrirCriacaoSala()
-    {
-        $("#criarSalaModal").modal();
-    }
-
-    function SelecionarSala(idSala, senha = "")
-    {
-        if(window.confirm("Deseja entrar nesta sala?"))
-        {
-            if(senha != "")
-            {
-                var senhaSala = window.prompt("Esta é uma sala privativa, digite a senha da sala");
-                if(senhaSala != senha)
-                {
-                    window.alert("A senha inserida não é a mesma da sala.")
-                    return 0;
-                }
-                else
-                {
-                    location.href = "sala.php?sala="+idSala;    
-                }
-            }
-            else
-            {
-                location.href = "sala.php?sala="+idSala;
-            }
-        }
-    }
-
-    function CriarSala()
-    {
-       $.ajax({
-            type: "post",
-            url: "lib/php/cadastrar-sessao.php",
-            data: $("#formCadastroSessao").serialize(),
-            success: function(response)
-            {
-                window.alert(response);
-                location.reload();  
-            }      
-       }); 
-    }
-
-    function AtualizarJogos()
-    {
-        location.reload();
-    }
-
-    function Teste()
-    {
-        window.alert("mensagem");
-    }
-</script>
 
 <body>
 
@@ -123,13 +76,13 @@ include_once("lib/php/monta-sessao.php");
             </style>
 
         <?php if($dadosSessao[$i]['privada'] == 'n'):?>
-            <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>)" align="center">
+            <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>,<?=$dadosSessao[$i]['id_usuario']?>,<?=$dadosSessao[$i]['id_tema']?>)" align="center">
                 Tema: <?=strtoupper($dadosSessao[$i]['tema'])?> <br>
                 Criador: <?=strtoupper($dadosSessao[$i]['login'])?> <br>
                 (Publico)
             </div>
         <?php else:?>
-            <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>, '<?=$dadosSessao[$i]['senha_sala']?>')" align="center">
+            <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>,<?=$dadosSessao[$i]['id_usuario']?>,<?=$dadosSessao[$i]['id_tema']?> ,'<?=$dadosSessao[$i]['senha_sala']?>')" align="center">
                 Tema: <?=strtoupper($dadosSessao[$i]['tema'])?> <br>
                 Criador: <?=strtoupper($dadosSessao[$i]['login'])?> <br>
                 (Privado)
@@ -137,7 +90,7 @@ include_once("lib/php/monta-sessao.php");
         <?php endif?>
 
         <?php $i++; endwhile?>
-
+    
     </div>
 </div>
 
@@ -179,4 +132,82 @@ include_once("lib/php/monta-sessao.php");
     </div>
   </div>
 </div>
+<script type="text/javascript">
+    function PaginaAdministracao()
+    {
+        location.href = 'cadastros-listas.php';
+    }
+
+    function AbrirCriacaoSala()
+    {
+        $("#criarSalaModal").modal();
+    }
+
+    function SelecionarSala(idSala, idOutroJogador, idTema, senha = "")
+    {
+    
+        if(window.confirm("Deseja entrar nesta sala?"))
+        {
+            if(senha != "")
+            {
+                var senhaSala = window.prompt("Esta é uma sala privativa, digite a senha da sala");
+                if(senhaSala != senha)
+                {
+                    window.alert("A senha inserida não é a mesma da sala.")
+                    return 0;
+                }
+                else
+                {
+                    EntrarSala(idSala,idOutroJogador);    
+                }
+            }
+            else
+            {
+                EntrarSala(idSala,idOutroJogador,idTema); 
+            }
+        }
+    }
+
+    function CriarSala()
+    {
+       $.ajax({
+            type: "post",
+            url: "lib/php/cadastrar-sessao.php",
+            data: $("#formCadastroSessao").serialize(),
+            success: function(response)
+            {
+                window.alert(response);
+                /*location.reload(); */
+                location.href = "sala.php"; 
+            }      
+       }); 
+    }
+
+    function EntrarSala(idSala,idOutroJogador,idTema)
+    {        
+        
+     var cabec = {sala: idSala,idOutro: idOutroJogador,id_Tema: idTema};   
+        $.ajax({
+            type: "post",
+            url: "lib/php/entrar-sessao.php",
+            data: cabec,
+            success: function(response)
+            {
+                /*window.alert(response);
+                /*location.reload();*/ 
+                location.href = "sala.php";
+            }      
+       }); 
+    }
+    function AtualizarJogos()
+    {
+        location.reload();
+    }
+
+    function Teste()
+    {
+        window.alert("mensagem");
+    }
+</script>
+
 </body>

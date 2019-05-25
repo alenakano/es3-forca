@@ -4,9 +4,7 @@
 
 <head>
 	<!-- meta tags -->
-
-    
-
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -290,23 +288,14 @@
                         <img src="img/logo.png" alt="Jogo da Forca" width=351 height=100 style="margin-left: 50px;">    
                     </div>              
                     <div class="column" align="center" style="margin-top: 15px;margin-left:400px;">
-                        <div class="row" >
-                            <?php if(isset($_SESSION['user'])):?>
-                            Bem vindo <?=$_SESSION['user']['nome'] ?>.
-                            &nbsp;
-                            &nbsp;
-                            <?=$_SESSION['user']['creditos'] ?>
-                            <?php endif?> 
-                            
-
+                        <?php if(isset($_SESSION['user'])):?>
+                        <div class="row" >                            
+                           Bem vindo <?=$_SESSION['user']['nome'] ?>.
                         </div>          
                         <div class="row" >
-                            <?php if(isset($_SESSION['user'])):?>
                             Sua pontuação é de <?=$_SESSION['user']['score']?> vitórias 
-                            <?php endif?>
                         </div>  
                         <div class="row" >
-                            <?php if(isset($_SESSION['user'])):?>
                             <a href="lib/php/logout.php">Sair</a>
                             &nbsp;
                             &nbsp;
@@ -316,10 +305,10 @@
                             &nbsp;
                             &nbsp;                  
                                 <?php if($_SESSION['user']['perfil'] == "adm"):?>
-                                    <a href="cadastros-listas.php">Painel Administrativo</a>                                    
-                                <?php endif?>
-                            <?php endif?>
-                        </div>                        
+                                    <a href="cadastros-listas.php">Painel Administrativo</a>                                 
+                                <?php endif?>                            
+                        </div>  
+                        <?php endif?>                      
                     </div>
                 </div>              
     </div>

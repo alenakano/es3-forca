@@ -2,8 +2,8 @@
 session_start();
 include_once("conexao.dao.php");
 
-$sqlInsertSessao = 
-"INSERT INTO forca_sala 
+
+$sqlInsertSessao = "INSERT INTO forca_sala 
 (
     ID_TEMA,
     ID_USUARIO,
