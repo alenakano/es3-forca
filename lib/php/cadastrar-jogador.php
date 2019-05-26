@@ -1,7 +1,7 @@
 <?php
 include("conexao.dao.php");
 
-$sqlInclude = "INSERT INTO forca_usuario (NOME, LOGIN, SENHA, PERFIL) VALUES (?0, ?1, ?2, 'pla')";
+$sqlInclude = "INSERT INTO forca_usuario (NOME, LOGIN, SENHA, PERFIL, CREDITOS) VALUES (?0, ?1, ?2, 'pla', 50)";
 
 $parametros = array(
     $_REQUEST['cadastroNome'], 

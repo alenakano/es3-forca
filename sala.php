@@ -364,7 +364,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 }
                 else{
 
-                    var letras = ['A','B','C','D','E','F','G','H','I','J','K','L','M','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+                    var letras = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
                     for (var i = 0; i < letras.length; i++) {
                         var letra = document.createElement('div');
@@ -505,6 +505,29 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
     function VerificarLetra(letra)
     {
+        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
+        var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
+        var idAdversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
+        var palavra = "<?php echo $palavra; ?>";
+        if(letra!=''){
+            var cabec = {idSala: idSala,idJogador: idJogador,letra: letra};   
+            $.ajax({
+                type: "post",
+                url: "lib/php/insere-letra.php",
+                data: cabec,
+                success: function(response)
+                {
+                    DesenhaCentro(5,9,0,5,response,palavra);
+                    DesenhaPalavra(palavra,response);
+                    /*window.alert(response);   ;
+                    /*location.reload();*/ 
+
+                }      
+           });
+        }
+        else{
+        
+        }
         return true;
     }
   

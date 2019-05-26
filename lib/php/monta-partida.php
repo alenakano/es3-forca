@@ -1,5 +1,6 @@
 <?php
 include_once("conexao.dao.php");
+include_once("querys.php");
 
 $sqlpartida = 
     "SELECT * 
@@ -15,44 +16,15 @@ $sqlpartida =
 $dadosPartida = Conexao::ExecutarQuery($sqlpartida);
 
 if(!empty($dadosPartida)){
-    $sqlusuario = 
-        "SELECT * 
-        FROM        
-            forca_usuario U        
-        WHERE         
-            U.ID_USUARIO = {$dadosPartida[1]['id_usuario']}";
 
+    $dadosUsuario = Busca::BuscaJogador($dadosPartida[1]['id_adversario']);
+    
+    $dadosAdversario = Busca::BuscaJogador($dadosPartida[1]['id_usuario']);
 
-    $dadosUsuario = Conexao::ExecutarQuery($sqlusuario);
+    $dadosPalavra = Busca::BuscaPalavra($dadosPartida[1]['id_palavra']);
 
-    $sqladversario = 
-        "SELECT * 
-        FROM        
-            forca_usuario A       
-        WHERE         
-            A.ID_USUARIO = {$dadosPartida[1]['id_adversario']}";
+    $dadosLetras = Busca::BuscaLetras($dadosPartida[1]['id_sala']);
 
-
-
-    $dadosAdversario = Conexao::ExecutarQuery($sqladversario);
-
-    $sqlpalavra = 
-        "SELECT * 
-        FROM        
-            forca_palavra P       
-        WHERE         
-            P.ID_PALAVRA = {$dadosPartida[1]['id_palavra']}";
-
-    $dadosPalavra = Conexao::ExecutarQuery($sqlpalavra);
-
-
-    $sqlletras = 
-        "SELECT *
-        FROM        
-            forca_sala_letras L       
-        WHERE         
-            L.ID_SALA = {$dadosPartida[1]['id_sala']}";
-
-    $dadosLetras = Conexao::ExecutarQuery($sqlletras);
-    }
+}
+    
 ?>
