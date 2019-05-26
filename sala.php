@@ -251,6 +251,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     </div>
 </div>
 
+<script src="lib/js/timer.js"></script>
 <script type="text/javascript">
     var erros_adversario = "<?php echo $dadosPartida[1]['erros_adversario']; ?>";
     var erros_usuario = "<?php echo $dadosPartida[1]['erros_usuario']; ?>";
@@ -311,6 +312,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         p.setAttribute('id','time');
         p.innerHTML = segundos;
         d.appendChild(p);
+        iniciar();
     }
 
     function DesenhaCentro(idJogador,idAdversario,idVencedor,idJogadorVez,letras_escolhidas,palavra){
@@ -361,7 +363,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                         var letra = document.createElement('div');
                         if(letras_escolhidas.indexOf(letras[i])==-1){
                             letra.setAttribute('class','letras-selecao');
-                            letra.setAttribute('onclick','VerificarLetra('+letras[i]+')');    
+                            letra.setAttribute('onclick','VerificarLetra(\''+letras[i]+'\')');    
                         }
                         else{
                             letra.setAttribute('onclick','');
