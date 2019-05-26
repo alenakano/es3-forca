@@ -252,50 +252,57 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 </div>
 
 <script src="lib/js/timer.js"></script>
+
 <script type="text/javascript">
-    var erros_adversario = "<?php echo $dadosPartida[1]['erros_adversario']; ?>";
-    var erros_usuario = "<?php echo $dadosPartida[1]['erros_usuario']; ?>";
-    var dicas_adversario = "<?php echo $dadosPartida[1]['dicas_adversario']; ?>";
-    var dicas_usuario = "<?php echo $dadosPartida[1]['dicas_usuario']; ?>";
-    DesenhaForca('imagem_desafiante',erros_adversario);
-    DesenhaForca('imagem_desafiado',erros_usuario);
-    var nome_adversario = "<?php echo $nomeAdversario; ?>";
-    var nome_usuario = "<?php echo $dadosUsuario[1]['login']; ?>";
-    DesenhaNomeJogador('nome_desafiante',nome_adversario);
-    DesenhaNomeJogador('nome_desafiado',nome_usuario);
-    DesenhaBotoes();
-    var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>";
-    var id_usuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
-    var id_vencedor = "<?php echo $dadosPartida[1]['id_vencedor']; ?>";
-    var id_adversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
-    var id_jogador_vez = "<?php echo $dadosPartida[1]['id_jogador_vez']; ?>";
-    var dica1 = "<?php echo $dica1; ?>";
-    var dica2 = "<?php echo $dica2; ?>";
-    var dica3 = "<?php echo $dica3; ?>";
-    
 
-    var id_palavra = "<?php echo $dadosPartida[1]['id_palavra']; ?>";
-    
-    var palavra = "<?php echo $palavra; ?>";
-    console.log(id_palavra);
-    
-    if(id_sessao==id_usuario){
-        DesenhaDicas(dicas_usuario,dica1,dica2,dica3);
-    }
-    else{
-        DesenhaDicas(dicas_adversario,dica1,dica2,dica3);
-    }
+    AtualizaTudo();
 
-    var letras_escolhidas = "<?php echo $letras_escolhidas; ?>";
-    console.log(letras_escolhidas);
-    
-    DesenhaPalavra(palavra,letras_escolhidas);
+    function AtualizaTudo(){
+        var erros_adversario = "<?php echo $dadosPartida[1]['erros_adversario']; ?>";
+        var erros_usuario = "<?php echo $dadosPartida[1]['erros_usuario']; ?>";
+        var dicas_adversario = "<?php echo $dadosPartida[1]['dicas_adversario']; ?>";
+        var dicas_usuario = "<?php echo $dadosPartida[1]['dicas_usuario']; ?>";
+        DesenhaForca('imagem_desafiante',erros_adversario);
+        DesenhaForca('imagem_desafiado',erros_usuario);
+        var nome_adversario = "<?php echo $nomeAdversario; ?>";
+        var nome_usuario = "<?php echo $dadosUsuario[1]['login']; ?>";
+        DesenhaNomeJogador('nome_desafiante',nome_adversario);
+        DesenhaNomeJogador('nome_desafiado',nome_usuario);
+        DesenhaBotoes();
+        var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>";
+        var id_usuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
+        var id_vencedor = "<?php echo $dadosPartida[1]['id_vencedor']; ?>";
+        var id_adversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
+        var id_jogador_vez = "<?php echo $dadosPartida[1]['id_jogador_vez']; ?>";
+        var dica1 = "<?php echo $dica1; ?>";
+        var dica2 = "<?php echo $dica2; ?>";
+        var dica3 = "<?php echo $dica3; ?>";
+        
 
-    if(id_vencedor==0 && id_adversario!=0 && id_jogador_vez==id_sessao){
-        DesenhaTimer(5);    
+        var id_palavra = "<?php echo $dadosPartida[1]['id_palavra']; ?>";
+        
+        var palavra = "<?php echo $palavra; ?>";
+        console.log(id_palavra);
+        
+        if(id_sessao==id_usuario){
+            DesenhaDicas(dicas_usuario,dica1,dica2,dica3);
+        }
+        else{
+            DesenhaDicas(dicas_adversario,dica1,dica2,dica3);
+        }
+
+        var letras_escolhidas = "<?php echo $letras_escolhidas; ?>";
+        console.log(letras_escolhidas);
+        
+        DesenhaPalavra(palavra,letras_escolhidas);
+
+        if(id_vencedor==0 && id_adversario!=0 && id_jogador_vez==id_sessao){
+            DesenhaTimer(5);    
+        }
+        
+        DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
+
     }
-    
-    DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
 
     function ApagaTimer(){
         var d = document.getElementById('timer');

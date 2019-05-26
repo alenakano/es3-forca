@@ -21,7 +21,7 @@ $dadosPalavra = Conexao::ExecutarQuery($sqlListaPalavra);
 $dadosUsuario = Conexao::ExecutarQuery($sqlUsuario);
 ?>
 
-<script src="/lib/js/cadastro-listas.js"></script>
+<script src="./lib/js/cadastro-listas.js"></script>
 
 <body>
 

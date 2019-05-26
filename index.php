@@ -18,7 +18,7 @@ $sqlMelhoresJogadores =
 $score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
 ?>
 
-<script type="text/javascript" src="/lib/js/login.js"></script>
+<script type="text/javascript" src="./lib/js/login.js"></script>
 
 <body>	
 
@@ -95,7 +95,7 @@ $score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
 				<label for="login">Login:</label>
 				<input type="text" class="form-control" name="cadastroLogin" id="cadastroLogin"><br>
 				<label for="senha">Senha:</label>
-				<input type="password" class="form-control" name="cadastroSenha" id="cadastroLogin">
+				<input type="password" class="form-control" name="cadastroSenha" id="cadastroSenha">
 			</form>
 		</div>
       </div>
