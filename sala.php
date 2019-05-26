@@ -40,6 +40,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 <style>
     .letras-jogo
     {
+        cursor: default;
         overflow: hidden;
         padding-left: 15px;
         padding-right: 15px;
@@ -67,6 +68,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
     .letras-vazia
     {
+        cursor: default;
         overflow: hidden;
         padding-left: 15px;
         padding-right: 15px;
@@ -87,6 +89,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
     .letras-timer
     {
+        cursor: default;
         overflow: hidden;
         padding: 15px;
         font-weight: bold;
@@ -150,6 +153,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
     .letras-selecao
     {
+        cursor: default;
         overflow: hidden;
         padding: 13px;
         font-weight: bold;
@@ -164,6 +168,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
     .letras-erradas
     {
+        cursor: default;
         overflow: hidden;
         padding: 13px;
         font-weight: bold;
@@ -178,6 +183,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
     .letras-certas
     {
+        cursor: default;
         overflow: hidden;
         padding: 13px;
         font-weight: bold;
@@ -192,6 +198,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
     .letras-selecao:hover 
     {
+        cursor: default;
         background-color: #CDC1C5;
 
     }
