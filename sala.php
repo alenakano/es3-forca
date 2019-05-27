@@ -306,13 +306,15 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
         var dicas = document.createElement('button');
         dicas.setAttribute('class','btn btn-warning');
-        dicas.setAttribute('onclick','DesenhaBotoes(1)');
+        dicas.setAttribute('onclick','ComprarDica()');  
         dicas.innerHTML = "Dica";
 
         var p = document.createElement("p");
 
+
         var desistir = document.createElement('button');
         desistir.setAttribute('class','btn btn-danger');
+        desistir.setAttribute('onclick','Desistir()');
         desistir.innerHTML = "Desistir";
 
         dicas.style.width = "80%";
@@ -445,5 +447,27 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         return true;
     }
 
+    function ComprarDica(){
+        clearInterval(refresher);
+        var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
+        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
+        var cabec = {idSala: idSala,idJogador: idJogador};   
+        $.ajax({
+            type: "post",
+            url: "lib/php/compra-dica.php",
+            data: cabec,
+            success: function(response)
+            {
+               /* window.alert(response);*/
+                
+            }      
+        });
+        AtualizaTela();
+    }
+
+    function Desistir(){
+            window.alert('Implementar');
+    }
+  
 </script>
 </body>
