@@ -37,174 +37,8 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
    
 ?>
 
-<style>
-    .letras-jogo
-    {
-        cursor: default;
-        overflow: hidden;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-weight: bold;
-        font-size: 18px;        
-        background-size: cover;
-        border-radius: 5px;
-        border-color: #8B795E;
-        border-style: solid;        
-        transition-duration: 0.4s;
-        display: inline-block;
-        background-color: white;
-        color: black;        
-        text-shadow: 1px 1px 1px black; 
-    }
-    .letras-dicas
-    {
-        font-weight: bold;
-        font-size: 18px;
-        text-shadow: 1px 1px 1px black;
-        color: #F0FFF0;
-    }
-
-    .letras-vazia
-    {
-        cursor: default;
-        overflow: hidden;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-weight: bold;
-        font-size: 18px;        
-        background-size: cover;
-        border-radius: 5px;
-        border-color: white;
-        border-style: solid;        
-        transition-duration: 0.4s;
-        display: inline-block;
-        background-color: white;
-        color: black;        
-        text-shadow: 1px 1px 1px black; 
-    }
-
-    .letras-timer
-    {
-        cursor: default;
-        overflow: hidden;
-        padding: 15px;
-        font-weight: bold;
-        font-size: 28px;        
-        background-size: cover;
-        border-radius: 10px;
-        border-color: black;
-        border-style: solid;        
-        transition-duration: 0.4s;
-        display: inline-block;
-        background-color: white;
-        color: black;
-    }
-    .letras-geral
-    {
-        overflow: hidden;
-        font-weight: bold;
-        font-size: 20px;                         
-        display: inline-block;        
-        color: black;               
-    }
-    .letras-vit_det
-    {
-        overflow: hidden;
-        font-weight: bold;
-        font-size: 72px;                         
-        display: inline-block;        
-        color: black;               
-    }
-
-    .letras-waiting
-    {
-        overflow: hidden;
-        font-weight: bold;
-        font-size: 32px;                         
-        display: inline-block;        
-        color: black;               
-    }
-
-    .letras-waiting-play
-    {
-        overflow: hidden;
-        font-weight: bold;
-        font-size: 24px;                         
-        display: inline-block;        
-        color: black;               
-    }
-
-    .painel
-    {
-        width:100%;
-        padding-top: 10px;        
-        background-size: cover;
-        border-radius: 5px;
-        border-color: #8B795E;
-        border-style: solid;   
-        background-color: white;
-        color: black;
-        align-content: center;        
-    }
-
-    .letras-selecao
-    {
-        cursor: default;
-        overflow: hidden;
-        padding: 13px;
-        font-weight: bold;
-        font-size: 18px;
-        background-size: cover;
-        border-radius: 10px;
-        transition-duration: 0.4s;
-        display: inline-block;
-        background-color: #686868;
-        color: white;
-        text-shadow: 1px 1px 1px black; 
-    }
-    .letras-erradas
-    {
-        cursor: default;
-        overflow: hidden;
-        padding: 13px;
-        font-weight: bold;
-        font-size: 18px;
-        background-size: cover;
-        border-radius: 10px;
-        transition-duration: 0.4s;
-        display: inline-block;
-        background-color: red;
-        color: white;
-        text-shadow: 1px 1px 1px black; 
-    }
-    .letras-certas
-    {
-        cursor: default;
-        overflow: hidden;
-        padding: 13px;
-        font-weight: bold;
-        font-size: 18px;
-        background-size: cover;
-        border-radius: 10px;
-        transition-duration: 0.4s;
-        display: inline-block;
-        background-color: blue;
-        color: white;
-        text-shadow: 1px 1px 1px black; 
-    }
-    .letras-selecao:hover 
-    {
-        cursor: default;
-        background-color: #CDC1C5;
-
-    }
- 
-        
-</style>
+<!-- CSS de estilo de elementos da sala do jogo -->
+<link rel="stylesheet" type="text/css" href="./lib/css/sala.css">
 
 
 
@@ -258,10 +92,11 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     </div>
 </div>
 
-<script src="lib/js/timer.js"></script>
+<script src="./lib/js/timer.js"></script>
 
 <script type="text/javascript">
 
+    let palavra = "";
     AtualizaTudo();
 
     function AtualizaTudo(){
@@ -288,9 +123,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
         var id_palavra = "<?php echo $dadosPartida[1]['id_palavra']; ?>";
         
-        var palavra = "<?php echo $palavra; ?>";
-        console.log(id_palavra);
-        
+        palavra = "<?php echo $palavra; ?>";
         if(id_sessao==id_usuario){
             DesenhaDicas(dicas_usuario,dica1,dica2,dica3);
         }
@@ -299,7 +132,6 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         }
 
         var letras_escolhidas = "<?php echo $letras_escolhidas; ?>";
-        console.log(letras_escolhidas);
         
         DesenhaPalavra(palavra,letras_escolhidas);
 
@@ -430,7 +262,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 var espaço = document.createTextNode(" ");
                 d.appendChild(espaço);   
             }
-   
+            VerificarAcertoFinal();
         }
     } 
 
@@ -508,7 +340,19 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         b.appendChild(nomeJ);
     }
         
-    
+    function VerificarAcertoFinal() {
+        let tentativa = "";
+        $('#palavra')
+            .children()
+            .contents()
+            .filter(function(i) {
+                tentativa += this.nodeValue.toString().trim();
+            })
+        if (tentativa === palavra.trim()) {
+            alert("TEMOS UM VENCEDOR!");
+        }
+            
+    }
 
     function VerificarLetra(letra)
     {
@@ -537,6 +381,6 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         }
         return true;
     }
-  
+
 </script>
 </body>
