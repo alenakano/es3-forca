@@ -255,9 +255,15 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
 <script type="text/javascript">
 
-    AtualizaTudo();
+    var tempo_timer = 5;
+    var refresher = setInterval(AtualizaTela(), 1000);
+    clearInterval(refresher);    
 
-    function AtualizaTudo(){
+    var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>"
+    
+    CriaTela();
+
+    function CriaTela(){
         var erros_adversario = "<?php echo $dadosPartida[1]['erros_adversario']; ?>";
         var erros_usuario = "<?php echo $dadosPartida[1]['erros_usuario']; ?>";
         var dicas_adversario = "<?php echo $dadosPartida[1]['dicas_adversario']; ?>";
@@ -268,8 +274,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         var nome_usuario = "<?php echo $dadosUsuario[1]['login']; ?>";
         DesenhaNomeJogador('nome_desafiante',nome_adversario);
         DesenhaNomeJogador('nome_desafiado',nome_usuario);
-        DesenhaBotoes();
-        var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>";
+        DesenhaBotoes();        
         var id_usuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
         var id_vencedor = "<?php echo $dadosPartida[1]['id_vencedor']; ?>";
         var id_adversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
@@ -282,7 +287,6 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         var id_palavra = "<?php echo $dadosPartida[1]['id_palavra']; ?>";
         
         var palavra = "<?php echo $palavra; ?>";
-        console.log(id_palavra);
         
         if(id_sessao==id_usuario){
             DesenhaDicas(dicas_usuario,dica1,dica2,dica3);
@@ -292,12 +296,11 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         }
 
         var letras_escolhidas = "<?php echo $letras_escolhidas; ?>";
-        console.log(letras_escolhidas);
         
         DesenhaPalavra(palavra,letras_escolhidas);
 
         if(id_vencedor==0 && id_adversario!=0 && id_jogador_vez==id_sessao){
-            DesenhaTimer(5);    
+            DesenhaTimer(tempo_timer);    
         }
         
         DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
@@ -347,6 +350,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 texto.setAttribute('class','letras-waiting');
                 texto.innerHTML = "Aguardando Adversário...!"; 
                 d.appendChild(texto);
+                refresher = setInterval(AtualizaTela(), 1000);                   
             }
             else{
                 if(idJogadorVez!=idJogador){
@@ -360,7 +364,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     texto.setAttribute('class','letras-waiting-play'); 
                     texto.innerHTML = "Adversário..."; 
                     d.appendChild(texto);
-
+                    refresher = setInterval(AtualizaTela(), 1000);
                 }
                 else{
 
@@ -428,26 +432,28 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     } 
 
     function DesenhaDicas(qtdDicas,dica1,dica2,dica3){
-        if(qtdDicas>0){
+        
         var d = document.getElementById('dica1');
         d.setAttribute('class','letras-dicas');
         d.innerHTML = "";
+        if(qtdDicas>0){
         var t = document.createTextNode(dica1);   
         d.appendChild(t);
         }
 
-        if(qtdDicas>1){
         d = document.getElementById('dica2');
         d.setAttribute('class','letras-dicas');
         d.innerHTML = "";
+        if(qtdDicas>1){
         t = document.createTextNode(dica2);   
         d.appendChild(t);
         }
 
-        if(qtdDicas>2){
+        
         d = document.getElementById('dica3');
         d.setAttribute('class','letras-dicas');
         d.innerHTML = "";
+        if(qtdDicas>2){
         t = document.createTextNode(dica3);   
         d.appendChild(t);
         }
@@ -478,15 +484,16 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
     function DesenhaForca(id,erros){
         var b = document.getElementById(id);
+        if(b.innerHTML.indexOf(erros+'.jpeg')==-1){
+            var img = document.createElement('img');
+            img.setAttribute('alt','Desafiante');
+            img.setAttribute('src','img/f'+erros+'.jpeg');
+            img.setAttribute('height','240px');
+            img.setAttribute('width','240px');
 
-        var img = document.createElement('img');
-        img.setAttribute('alt','Desafiante');
-        img.setAttribute('src','img/f'+erros+'.jpeg');
-        img.setAttribute('height','240px');
-        img.setAttribute('width','240px');
-
-        b.innerHTML = "";
-        b.appendChild(img);
+            b.innerHTML = "";
+            b.appendChild(img);
+        }
         
     }
     function DesenhaNomeJogador(id,nome){
@@ -500,34 +507,100 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         b.innerHTML = "";
         b.appendChild(nomeJ);
     }
-        
-    
 
-    function VerificarLetra(letra)
-    {
-        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
-        var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
-        var idAdversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
-        var palavra = "<?php echo $palavra; ?>";
-        if(letra!=''){
-            var cabec = {idSala: idSala,idJogador: idJogador,letra: letra};   
+    function AtualizaTela(){
+        clearInterval(refresher);
+        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";  
+        var cabec = {idSala: idSala};    
             $.ajax({
                 type: "post",
-                url: "lib/php/insere-letra.php",
+                url: "lib/php/atualiza-partida.php",
                 data: cabec,
                 success: function(response)
                 {
-                    DesenhaCentro(5,9,0,5,response,palavra);
-                    DesenhaPalavra(palavra,response);
-                    /*window.alert(response);   ;
-                    /*location.reload();*/ 
+                    
+                    /*window.alert(response); */  
+                    
+                    var retorno = JSON.parse(response);
+                     
+                    DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario']);
+                    DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario']);
 
+                    var id_usuario = retorno['sala'][1]['id_usuario'];
+                    var id_adversario = retorno['sala'][1]['id_adversario'];
+                    var id_palavra = retorno['sala'][1]['id_palavra'];
+                    var id_vencedor = retorno['sala'][1]['id_vencedor'];
+                    var id_jogador_vez = retorno['sala'][1]['id_jogador_vez'];
+                    var palavra = "";
+                    var letras_escolhidas = "";
+                    var nome_adversario = "";
+
+                    if(id_adversario!=0){
+                        nome_adversario = retorno['adversario'][1]['login'];
+                        DesenhaNomeJogador('nome_desafiante',nome_adversario);
+                    }
+
+
+
+                    if(id_palavra!=0){
+                        var dicas = retorno['palavra'][1]['dicas'].split(",");
+                        palavra = retorno['palavra'][1]['palavra'];
+                        for(var k in retorno['letras']) {
+                            letras_escolhidas = letras_escolhidas + " " + retorno['letras'][k]['letra'];
+                        }
+                    
+                        if(id_sessao==id_usuario){
+
+                            var qtddicas = retorno['sala'][1]['dicas_usuario'];                             
+                            DesenhaDicas(qtddicas,dicas[0],dicas[1],dicas[2]);
+                        }
+                        else{
+                            var qtddicas = retorno['sala'][1]['dicas_adversario'];
+                            DesenhaDicas(qtddicas,dicas[0],dicas[1],dicas[2]);
+                        }
+                    }
+
+                
+                    if(id_vencedor != 0 || id_sessao != id_jogador_vez){
+                        ApagaTimer();
+                    }
+                    else{
+                        DesenhaTimer(tempo_timer);
+                    }
+                    
+                    DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
+                    DesenhaPalavra(palavra,letras_escolhidas);
+                    
                 }      
            });
-        }
-        else{
+    }
+
         
-        }
+    
+    function VerificarLetra(letra)
+    {
+        parar();
+        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
+        var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
+        var idUsuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
+        var idAdversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
+        var palavra = "<?php echo $palavra; ?>";
+
+
+
+        var cabec = {idSala: idSala,idJogador: idJogador,idUsuario: idUsuario,idAdversario: idAdversario,palavra: palavra,letra: letra,};   
+        $.ajax({
+            type: "post",
+            url: "lib/php/insere-letra.php",
+            data: cabec,
+            success: function(response)
+            {
+                /*window.alert(response);*/
+                AtualizaTela();
+            }      
+        });
+        
+        
         return true;
     }
   
