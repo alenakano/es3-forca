@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="icon" href="./img/favicon.ico">
+    <link rel="icon" href="img/favicon.ico">
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -34,10 +34,10 @@
 	<title>Jogo da forca</title>
 
     <!-- CSS de estilo de elementos gerais da tela do jogo -->
-    <link rel="stylesheet" type="text/css" href="./lib/css/header.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/header.css">
 
     <!-- JS de controle do administrativo e do login-->
-    <script type="text/javascript" src="./lib/js/header.js"></script>
+    <script type="text/javascript" src="lib/js/header.js"></script>
 
 </head>
 

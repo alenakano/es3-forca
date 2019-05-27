@@ -174,6 +174,7 @@ while($i <= count($dadosSessao)){
             type: "post",
             url: "lib/php/cadastrar-sessao.php",
             data: $("#formCadastroSessao").serialize(),
+            assync: true,
             success: function(response)
             {
                 window.alert(response);

@@ -2,7 +2,7 @@
     @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline|Montserrat|Roboto');
 
     body{
-	   background-image: url(/img/fundo.jpg);
+	   background-image: url(../../img/fundo.jpg);
         background-size: 100% 100%;
         font-family: 'Montserrat', sans-serif;
     }
@@ -20,14 +20,14 @@
     }
 
     .dashboard-tips {
-        background-image: url(/img/painel.jpg);
+        background-image: url(../../img/painel.jpg);
         background-size: cover;
         border-radius: 5px;
         font-weight: bold;
         font-size: 18px;
         text-shadow: 1px 1px 1px black;  
         color: #F0FFF0;
-        border-image: url(/img/corda.jpg) 5 / 5px repeat; 
+        border-image: url(../../img/corda.jpg) 5 / 5px repeat; 
     }
 
     .title {

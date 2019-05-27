@@ -48,9 +48,10 @@ function atualizaCredito($valor,$idJogador){
 	$sqlAtualizaCredito = 
 					"UPDATE forca_usuario U
 					SET
-					U.CREDITOS = U.CREDITO + {$valor}
+					U.CREDITOS = U.CREDITOS + {$valor}
 					WHERE U.ID_USUARIO = {$idJogador}
 					";
+	echo $sqlAtualizaCredito;
 	return Conexao::ExecutarQuery($sqlAtualizaCredito);					
 }
 function atualizaQtdDica($idSala,$usuOuAdver){

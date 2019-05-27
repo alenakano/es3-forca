@@ -21,7 +21,7 @@ else{
 
 $sqlPalavras = "SELECT * FROM forca_palavra P WHERE P.ID_TEMA = {$idTema}";
 $palavras = Conexao::ExecutarQuery($sqlPalavras);
-$rand = rand(0, count($palavras));
+$rand = rand(1, count($palavras));
 $palavraSelecionada = $palavras[$rand]['id_palavra'];
 
 

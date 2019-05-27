@@ -97,8 +97,8 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 <script type="text/javascript">
 
     var tempo_timer = 5;
-    var refresher = setInterval(AtualizaTela(), 1000);
-    clearInterval(refresher);    
+    var refresher;
+    clearTimeout(refresher);    
 
     var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>"
     
@@ -191,7 +191,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 texto.setAttribute('class','letras-waiting');
                 texto.innerHTML = "Aguardando Adversário...!"; 
                 d.appendChild(texto);
-                refresher = setInterval(AtualizaTela(), 1000);                   
+                refresher = setTimeout(AtualizaTela(), 1000);                   
             }
             else{
                 if(idJogadorVez!=idJogador){
@@ -205,7 +205,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     texto.setAttribute('class','letras-waiting-play'); 
                     texto.innerHTML = "Adversário..."; 
                     d.appendChild(texto);
-                    refresher = setInterval(AtualizaTela(), 1000);
+                    refresher = setTimeout(AtualizaTela(), 1000);
                 }
                 else{
 
@@ -352,12 +352,13 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
 
     function AtualizaTela(){
-        clearInterval(refresher);
+        clearTimeout(refresher);
         var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";  
         var cabec = {idSala: idSala};    
             $.ajax({
                 type: "post",
                 url: "lib/php/atualiza-partida.php",
+                assync: true,
                 data: cabec,
                 success: function(response)
                 {
@@ -422,7 +423,9 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     
     function VerificarLetra(letra)
     {
-        parar();
+        if(letra!=''){
+            parar();
+        }
         var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
         var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
         var idUsuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
@@ -431,11 +434,12 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
 
 
-        var cabec = {idSala: idSala,idJogador: idJogador,idUsuario: idUsuario,idAdversario: idAdversario,palavra: palavra,letra: letra,};   
+        var cabec = {idSala: idSala,idJogador: idJogador,letra: letra};   
         $.ajax({
             type: "post",
             url: "lib/php/insere-letra.php",
             data: cabec,
+            assync: true,
             success: function(response)
             {
                 /*window.alert(response);*/
@@ -448,17 +452,18 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
 
     function ComprarDica(){
-        clearInterval(refresher);
+        clearTimeout(refresher);
         var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
         var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
         var cabec = {idSala: idSala,idJogador: idJogador};   
         $.ajax({
             type: "post",
             url: "lib/php/compra-dica.php",
+            assync: true,
             data: cabec,
             success: function(response)
             {
-               /* window.alert(response);*/
+               window.alert(response);
                 
             }      
         });
