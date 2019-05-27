@@ -463,7 +463,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
             data: cabec,
             success: function(response)
             {
-               window.alert(response);
+               /*window.alert(response);*/
                 
             }      
         });
