@@ -15,7 +15,7 @@ class Busca
         forca_tema T              
     WHERE                 
         S.ID_TEMA = T.ID_TEMA AND
-        S.ID_USUARIO = {$id_sala})";              
+        S.ID_SALA = {$id_sala}";              
 
     $dadosPartida = Conexao::ExecutarQuery($sqlpartida);
     return $dadosPartida;

@@ -17,9 +17,9 @@ $dadosPartida = Conexao::ExecutarQuery($sqlpartida);
 
 if(!empty($dadosPartida)){
 
-    $dadosUsuario = Busca::BuscaJogador($dadosPartida[1]['id_adversario']);
+    $dadosUsuario = Busca::BuscaJogador($dadosPartida[1]['id_usuario']);
     
-    $dadosAdversario = Busca::BuscaJogador($dadosPartida[1]['id_usuario']);
+    $dadosAdversario = Busca::BuscaJogador($dadosPartida[1]['id_adversario']);
 
     $dadosPalavra = Busca::BuscaPalavra($dadosPartida[1]['id_palavra']);
 
