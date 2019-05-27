@@ -1,0 +1,58 @@
+
+    @import url('https://fonts.googleapis.com/css?family=Fascinate+Inline|Montserrat|Roboto');
+
+    body{
+	   background-image: url(/img/fundo.jpg);
+        background-size: 100% 100%;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .dashboard {
+        background-color: white;
+        padding: 5px; 
+        border-radius: 15px;        
+    }
+
+    .dashboard-form {
+        background-color: white;
+        padding: 5px; 
+        border-radius: 5px;
+        box-shadow: 0px 5px 5px 1px #888888;
+    }
+
+    .dashboard-tips {
+        background-image: url(/img/painel.jpg);
+        background-size: cover;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 18px;
+        text-shadow: 1px 1px 1px black;  
+        color: #F0FFF0;
+        border-image: url(/img/corda.jpg) 5 / 5px repeat; 
+    }
+
+    .title {
+        font-family: 'Fascinate Inline', cursive;
+        font-size: 35px;
+    }
+    
+    .jogo{
+            background-image: url("https://i.ytimg.com/vi/bWghPe5YB7g/maxresdefault.jpg");
+            color: white;
+            height: 100%;
+            overflow: hidden;
+            padding: 30px;
+            font-weight: bold;
+            font-size: 30px;
+            width: 33%;
+            background-size: cover;
+            border-radius: 10px;
+            text-shadow: 4px 4px 2px black;
+            transition-duration: 0.4s;
+            display: inline-block;
+        }
+
+        .jogo:hover{
+            background-image: url("http://93fm.radio.br/wp-content/uploads/2018/12/musicas.jpg");   
+            background-size: cover;
+            cursor:pointer;
+        }
