@@ -98,6 +98,8 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
     var tempo_timer = 5;
     var refresher;
+    var finalizador;
+    
     clearTimeout(refresher);    
 
     var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>"
@@ -174,13 +176,15 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 var texto = document.createElement('p');
                 texto.setAttribute('class','letras-vit_det');
                 texto.innerHTML = "Você venceu!";
-                d.appendChild(texto);    
+                d.appendChild(texto);
+                FinalizaSala();
             }
             else{
                 var texto = document.createElement('p');
                 texto.setAttribute('class','letras-vit_det');
                 texto.innerHTML = "Você perdeu!"; 
-                d.appendChild(texto);      
+                d.appendChild(texto);
+                FinalizaSala();
             }
         }
         else{
@@ -190,8 +194,9 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 d.appendChild(br);
                 texto.setAttribute('class','letras-waiting');
                 texto.innerHTML = "Aguardando Adversário...!"; 
-                d.appendChild(texto);
-                refresher = setTimeout(AtualizaTela(), 1000);                   
+                d.appendChild(texto);                
+                refresher = setTimeout(AtualizaTela(), 1000);   
+
             }
             else{
                 if(idJogadorVez!=idJogador){
@@ -469,6 +474,27 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         });
         AtualizaTela();
     }
+
+    function FinalizaSala(){
+        
+            var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
+            var cabec = {idSala: idSala};   
+            $.ajax({
+                type: "post",
+                url: "lib/php/finaliza-sala.php",
+                assync: true,
+                data: cabec,
+                success: function(response)
+                {
+                   setTimeout(function(){window.location.href = "menu.php";},5000);  
+                   /*
+                   window.alert(response);      */   
+                }      
+            });
+        
+        
+    }
+
 
     function Desistir(){
             window.alert('Implementar');
