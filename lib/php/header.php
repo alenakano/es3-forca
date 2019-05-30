@@ -6,7 +6,8 @@
 	<!-- meta tags -->
    
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1">
     
     <link rel="icon" href="img/favicon.ico">
 
@@ -47,13 +48,13 @@
 
 </head>
 
-<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:5px;margin-bottom:-20px;">
-    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-style: solid;border-width: 3px;border-image: url(img/corda.jpg) 7 / 7px repeat ">
-        <div class="row style">
-            <div class="column" align="center">
-                <img src="img/logo.png" alt="Jogo da Forca" width=351 height=100 style="margin-left: 50px;">    
+<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:3px;margin-bottom:-20px;">
+    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-image: url(img/corda.jpg) 7 / 7px repeat;">
+        <div class="row style col-sm-12">
+            <div class="column col-sm-5">
+                <img src="img/logo.png" alt="Jogo da Forca" width="100%" height="auto">    
             </div>              
-            <div class="column" align="center" style="margin-top: 5px;margin-left:400px;">
+            <div class="col-sm-3 offset-sm-4 align-self-center">
                 <?php if(isset($_SESSION['user'])):?>
                 <div class="row" align="center">                            
                     Bem vindo <?=$_SESSION['user']['nome'] ?>.

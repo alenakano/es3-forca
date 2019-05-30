@@ -45,7 +45,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 <body>
 
 <div class="container" style="margin-top:0px;padding-top: 0px">
-    <div class="dashboard" align="center" style="margin-top:0px; margin-bottom:0px;">
+    <div class="dashboard col-sm-12" align="center" style="margin-top:0px; margin-bottom:0px;">
         <div class="row" style="margin-top:5px; margin-bottom:5px;">
             <div class="col-sm-12" id="palavra">                                
             </div>
@@ -349,8 +349,8 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
             var img = document.createElement('img');
             img.setAttribute('alt','Desafiante');
             img.setAttribute('src','img/f'+erros+'.jpeg');
-            img.setAttribute('height','240px');
-            img.setAttribute('width','240px');
+            img.setAttribute('height','auto');
+            img.setAttribute('width','100%');
 
             b.innerHTML = "";
             b.appendChild(img);
