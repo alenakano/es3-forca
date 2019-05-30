@@ -15,7 +15,7 @@ $sqlpartida =
 
 $dadosPartida = Conexao::ExecutarQuery($sqlpartida);
 
-if(!empty($dadosPartida)){
+/*if(!empty($dadosPartida)){
 
     $dadosUsuario = Busca::BuscaJogador($dadosPartida[1]['id_usuario']);
     
@@ -25,6 +25,6 @@ if(!empty($dadosPartida)){
 
     $dadosLetras = Busca::BuscaLetras($dadosPartida[1]['id_sala']);
 
-}
+}*/
     
 ?>

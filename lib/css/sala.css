@@ -11,7 +11,8 @@
     background-size: cover;
     border-radius: 5px;
     border-color: #8B795E;
-    border-style: solid;        
+    border-style: solid;
+    border-width: 3px;        
     transition-duration: 0.4s;
     display: inline-block;
     background-color: white;
@@ -56,12 +57,11 @@
     font-size: 28px;        
     background-size: cover;
     border-radius: 10px;
-    border-color: black;
-    border-style: solid;        
+    border-style: solid;
+    border-width: 2px;        
     transition-duration: 0.4s;
     display: inline-block;
-    background-color: white;
-    color: black;
+    border-color: black;
 }
 .letras-geral
 {
@@ -100,15 +100,19 @@
 
 .painel
 {
-    width:100%;
-    padding-top: 10px;        
     background-size: cover;
-    border-radius: 5px;
+    width: 99%;
+    border-radius: 15px;
     border-color: #8B795E;
-    border-style: solid;   
+    border-style: solid;
+    border-width: 2px;   
     background-color: white;
     color: black;
-    align-content: center;        
+    align-content: center;
+    vertical-align: middle;
+    margin-top: -20px;
+    margin-bottom: 1px;
+    height: 150px;"         
 }
 
 .letras-selecao
@@ -117,9 +121,9 @@
     overflow: hidden;
     padding: 13px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 21px;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 8px;
     transition-duration: 0.4s;
     display: inline-block;
     background-color: #686868;
@@ -132,9 +136,9 @@
     overflow: hidden;
     padding: 13px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 21px;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 8px;
     transition-duration: 0.4s;
     display: inline-block;
     background-color: red;
@@ -147,9 +151,9 @@
     overflow: hidden;
     padding: 13px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 21px;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 8px;
     transition-duration: 0.4s;
     display: inline-block;
     background-color: blue;
@@ -161,4 +165,46 @@
     cursor: default;
     background-color: #CDC1C5;
 
+}
+
+.dashboard-tips {
+    background-image: url(../../img/painel.jpg);
+    background-size: cover;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px black;  
+    color: #F0FFF0;
+    border-style: solid;
+    border-width: 3px;
+    border-image: url(../../img/corda.jpg) 5 / 5px repeat; 
+}
+
+.coluna-timer{
+    margin-top: 5px;
+    height: 90%;
+    border-right: solid;
+    border-width: 1px ;
+    padding-bottom: 10px;
+    border-color: #8B795E;
+    vertical-align:middle;
+    height: 90%;
+}
+
+.coluna-centro{
+    height: 140px;
+    vertical-align:middle;
+    margin-top: 5px;
+    height: 90%;
+}
+
+.coluna-botoes{
+    padding-right:15px;
+    margin-top: 5px;
+    height: 90%;
+    border-color: black;
+    border-left: solid;
+    border-width: 1px ;
+    border-color: #8B795E; 
+    vertical-align:middle;
 }

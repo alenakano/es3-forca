@@ -8,8 +8,9 @@
     }
     .dashboard {
         background-color: white;
-        padding: 5px; 
-        border-radius: 15px;        
+        padding: 3px; 
+        border-radius: 15px;
+        padding-top: 2px;        
     }
 
     .dashboard-form {
@@ -19,20 +20,12 @@
         box-shadow: 0px 5px 5px 1px #888888;
     }
 
-    .dashboard-tips {
-        background-image: url(../../img/painel.jpg);
-        background-size: cover;
-        border-radius: 5px;
-        font-weight: bold;
-        font-size: 18px;
-        text-shadow: 1px 1px 1px black;  
-        color: #F0FFF0;
-        border-image: url(../../img/corda.jpg) 5 / 5px repeat; 
-    }
 
     .title {
         font-family: 'Fascinate Inline', cursive;
-        font-size: 35px;
+        font-size: 30px;
+        vertical-align: middle;
+        text-align: center;
     }
     
     .jogo{

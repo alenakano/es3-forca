@@ -16,6 +16,9 @@
     <!-- canvasjs -->
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
+    <!-- Reseta todo CSS -->
+    <link rel="stylesheet" type="text/css" href="lib/css/reset.css">
+
     <!-- Normalizar CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous">    
 
@@ -29,6 +32,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<title>Jogo da forca</title>
@@ -39,18 +43,23 @@
     <!-- JS de controle do administrativo e do login-->
     <script type="text/javascript" src="lib/js/header.js"></script>
 
+    <script type="text/javascript" src="lib/js/desenha-credito.js"></script>
+
 </head>
 
-<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:3px;margin-bottom:-20px;">
-    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-image: url(img/corda.jpg) 7 / 7px repeat;">
-        <div class="row">
+<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:5px;margin-bottom:-20px;">
+    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-style: solid;border-width: 3px;border-image: url(img/corda.jpg) 7 / 7px repeat ">
+        <div class="row style">
             <div class="column" align="center">
                 <img src="img/logo.png" alt="Jogo da Forca" width=351 height=100 style="margin-left: 50px;">    
             </div>              
-            <div class="column" align="center" style="margin-top: 15px;margin-left:400px;">
+            <div class="column" align="center" style="margin-top: 5px;margin-left:400px;">
                 <?php if(isset($_SESSION['user'])):?>
-                <div class="row" >                            
+                <div class="row" align="center">                            
                     Bem vindo <?=$_SESSION['user']['nome'] ?>.
+                </div>
+                <div class="row" id="creditos" style="margin-left:0px;">
+                    Você possui 0                            
                 </div>          
                 <div class="row" >
                     Sua pontuação é de <?=$_SESSION['user']['score']?> vitórias 

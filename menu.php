@@ -1,7 +1,4 @@
-﻿<?php
-
-
-include("lib/php/header.php");
+﻿<?php include("lib/php/header.php");
 include("lib/php/conexao.dao.php");
 
 
@@ -19,6 +16,8 @@ while($i <= count($dadosSessao)){
     }
  $i++;   
 }
+$creditos = $dadosJogador[1]['creditos'];
+
 
 ?>
 
@@ -48,16 +47,15 @@ while($i <= count($dadosSessao)){
 
 <body>
 
-<div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">       
+<div class="container">       
 
-    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;align-items: center;" >
-        <div style="width: 100%;">
-            <span class="title" style="text-align: center;">
-                <h1>
-                    Salas Disponiveis: 
+    <div class="dashboard">
+        <div style="width: 100%;text-align: center;vertical-align: middle;height: 50px;" >
+            <span class="title">                
+                    Salas Disponiveis:
                     &nbsp;&nbsp;<button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
-                    &nbsp;<button class="btn btn-danger" onclick="AtualizarJogos()">Atualizar Jogos</button>
-                </h1>
+                    &nbsp;<button class="btn btn-danger" onclick="AtualizarJogos()">Ranking</button>
+                
             </span>            
         </div>         
         
@@ -133,6 +131,10 @@ while($i <= count($dadosSessao)){
   </div>
 </div>
 <script type="text/javascript">
+
+
+    DesenhaCredito("<?php echo $creditos?>");
+
     function PaginaAdministracao()
     {
         location.href = 'cadastros-listas.php';
