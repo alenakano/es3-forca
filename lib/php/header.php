@@ -58,8 +58,12 @@
                 <div class="row" align="center">                            
                     Bem vindo <?=$_SESSION['user']['nome'] ?>.
                 </div>
-                <div class="row" id="creditos" style="margin-left:0px;">
-                    Você possui 0                            
+                <div class="row" style="margin-left:0px;">
+                    <div class="column"  id="creditos">
+                    </div>
+                    <div class="column" style="margin-left: 17px;">                    
+                        <img src="img/coin.png" alt="coin" style="width: 24px;height: 24px;">
+                    </div>
                 </div>          
                 <div class="row" >
                     Sua pontuação é de <?=$_SESSION['user']['score']?> vitórias 

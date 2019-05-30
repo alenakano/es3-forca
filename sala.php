@@ -87,8 +87,9 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 <div id="centro" align="center" style="margin-top: 3px;">
                 </div>       
             </div>
-            <div class="col-sm-2 coluna-botoes" id="botoes" align="center">             
-                
+            <div class="col-sm-2 coluna-botoes" id="botoes" align="center">    
+                <button onclick="Desistir()">botao</button>         
+               
             </div>
         </div>
     </div>
@@ -186,14 +187,14 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 texto.setAttribute('class','letras-vit_det');
                 texto.innerHTML = "Você venceu!";
                 d.appendChild(texto);
-                FinalizaSala();
+                FinalizaSala(3500);
             }
             else{
                 var texto = document.createElement('p');
                 texto.setAttribute('class','letras-vit_det');
                 texto.innerHTML = "Você perdeu!"; 
                 d.appendChild(texto);
-                FinalizaSala();
+                FinalizaSala(3500);
             }
         }
         else{
@@ -204,7 +205,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 texto.setAttribute('class','letras-waiting');
                 texto.innerHTML = "Aguardando Adversário...!"; 
                 d.appendChild(texto);                
-                refresher = setTimeout(AtualizaTela(), 1500);   
+                refresher = setTimeout(function(){AtualizaTela()}, 1000);   
 
             }
             else{
@@ -219,7 +220,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     texto.setAttribute('class','letras-waiting-play'); 
                     texto.innerHTML = "Adversário..."; 
                     d.appendChild(texto);
-                    refresher = setTimeout(AtualizaTela(), 1500);
+                    refresher = setTimeout(function(){AtualizaTela()}, 1000);
                 }
                 else{
 
@@ -385,8 +386,15 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     
                     /*window.alert(response); */  
                     
+
                     var retorno = JSON.parse(response);
                      
+                    var finaliza_sala = retorno['sala'][1]['sala_finalizada'];
+
+                    if (finaliza_sala == 'S'){
+                        window.location.href = "menu.php";
+                    }
+                    
                     DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario']);
                     DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario']);
 
@@ -442,7 +450,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     
                     DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
                     DesenhaPalavra(palavra,letras_escolhidas);
-                    DesenhaBotoes();                  
+                    DesenhaBotoes();          
                     
                     
                 }      
@@ -497,7 +505,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         AtualizaTela();
     }
 
-    function FinalizaSala(){
+    function FinalizaSala(tempo){
         
             var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
             var cabec = {idSala: idSala};   
@@ -508,7 +516,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 data: cabec,
                 success: function(response)
                 {
-                   setTimeout(function(){window.location.href = "menu.php";},3000);  
+                   setTimeout(function(){window.location.href = "menu.php";},tempo);  
                    /*
                    window.alert(response);      */   
                 }      
@@ -519,7 +527,10 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
 
     function Desistir(){
-            window.alert('Implementar');
+        if(window.confirm("Deseja desistir da partida?"))
+        {
+            FinalizaSala(0);
+        }
     }
   
 </script>
