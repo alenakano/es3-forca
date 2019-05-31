@@ -49,10 +49,10 @@
 </head>
 
 <div class="container" style="padding-top:0px;padding-bottom:0px;margin-top:3px;margin-bottom:-20px;">
-    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-image: url(img/corda.jpg) 7 / 7px repeat;">
+    <div class="dashboard" style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;border-style:solid;border-width: 1px;border-image: url(img/corda.jpg) 7 / 7px repeat;">
         <div class="row style col-sm-12">
             <div class="column col-sm-5">
-                <img src="img/logo.png" alt="Jogo da Forca" width="100%" height="auto">    
+                <img src="img/logo.png" alt="Jogo da Forca" width="95%" height="auto">    
             </div>              
             <div class="col-sm-3 offset-sm-4 align-self-center">
                 <?php if(isset($_SESSION['user'])):?>
