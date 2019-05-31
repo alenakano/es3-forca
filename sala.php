@@ -87,9 +87,13 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 <div id="centro" align="center" style="margin-top: 3px;">
                 </div>       
             </div>
-            <div class="col-sm-2 coluna-botoes" id="botoes" align="center">    
-                <button onclick="Desistir()">botao</button>         
-               
+            <div class="col-sm-2 coluna-botoes" id="botoes" align="center">            	
+            	<button id="dica" class="btn btn-warning" style="width: 90%;" onclick="ComprarDica()">Dica</button>
+            	<font face="Verdana" style="font-size: 14px;" id="textocustodica">Custo Dica: </font>
+            	<font face="Verdana" style="font-size: 14px;" id="custodica">1</font>
+            	<br>
+            	<br>    
+                <button id="desistir" class="btn btn-danger" style="width: 90%;" onclick="Desistir()">Desistir</button>     
             </div>
         </div>
     </div>
@@ -102,62 +106,26 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     var refresher;
     var finalizador;
     var palavra = "";
+    var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>";
+    var idSala = 0;
+    var letras_escolhidas = "";
+    var nome_adversario = "";
+    var nome_usuario = "";
+    var id_usuario = 0;
+    var id_adversario = 0;
+    var id_palavra = 0;
+    var id_vencedor = 0;
+    var id_jogador_vez = 0;
+    var credito = 0; 
+    var finaliza_sala = "";
+    var dicas = "";
+    var qtddicas = 0;
     
-    clearTimeout(refresher);    
-
-    var id_sessao = "<?php echo $_SESSION['user']['id_usuario']; ?>"
+    clearTimeout(refresher);
+   
     
     AtualizaTela();
 
-    /*function CriaTela(){
-        var erros_adversario = "<?php echo $dadosPartida[1]['erros_adversario']; ?>";
-        var erros_usuario = "<?php echo $dadosPartida[1]['erros_usuario']; ?>";
-        var dicas_adversario = "<?php echo $dadosPartida[1]['dicas_adversario']; ?>";
-        var dicas_usuario = "<?php echo $dadosPartida[1]['dicas_usuario']; ?>";
-        DesenhaForca('imagem_desafiante',erros_adversario);
-        DesenhaForca('imagem_desafiado',erros_usuario);
-        var nome_adversario = "<?php echo $nomeAdversario; ?>";
-        var nome_usuario = "<?php echo $dadosUsuario[1]['login']; ?>";
-        DesenhaNomeJogador('nome_desafiante',nome_adversario);
-        DesenhaNomeJogador('nome_desafiado',nome_usuario);
-        DesenhaBotoes();        
-        var id_usuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
-        var id_vencedor = "<?php echo $dadosPartida[1]['id_vencedor']; ?>";
-        var id_adversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
-        var id_jogador_vez = "<?php echo $dadosPartida[1]['id_jogador_vez']; ?>";
-        var dica1 = "<?php echo $dica1; ?>";
-        var dica2 = "<?php echo $dica2; ?>";
-        var dica3 = "<?php echo $dica3; ?>";
-        
-
-        var id_palavra = "<?php echo $dadosPartida[1]['id_palavra']; ?>";
-        
-        var palavra = "<?php echo $palavra; ?>";
-        var credito = 0;
-        
-        if(id_sessao==id_usuario){
-            DesenhaDicas(dicas_usuario,dica1,dica2,dica3);
-            credito = "<?php echo $dadosUsuario[1]['creditos']; ?>";
-            DesenhaCredito(credito);
-        }
-        else{
-            DesenhaDicas(dicas_adversario,dica1,dica2,dica3);
-
-            /*credito = "<?php echo $dadosAdversario[1]['creditos']; ?>";
-            DesenhaCredito(credito);
-        }
-
-        var letras_escolhidas = "<?php echo $letras_escolhidas; ?>";
-        
-        DesenhaPalavra(palavra,letras_escolhidas);
-
-        if(id_vencedor==0 && id_adversario!=0 && id_jogador_vez==id_sessao){
-            DesenhaTimer(tempo_timer);    
-        }
-        
-        DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
-
-    }*/
 
     function ApagaTimer(){
         var d = document.getElementById('timer');
@@ -205,7 +173,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 texto.setAttribute('class','letras-waiting');
                 texto.innerHTML = "Aguardando Adversário...!"; 
                 d.appendChild(texto);                
-                refresher = setTimeout(function(){AtualizaTela()}, 1000);   
+                refresher = setTimeout(function(){AtualizaTela()}, 500);   
 
             }
             else{
@@ -220,7 +188,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     texto.setAttribute('class','letras-waiting-play'); 
                     texto.innerHTML = "Adversário..."; 
                     d.appendChild(texto);
-                    refresher = setTimeout(function(){AtualizaTela()}, 1000);
+                    refresher = setTimeout(function(){AtualizaTela()}, 500);
                 }
                 else{
 
@@ -244,14 +212,10 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                         
                         letra.innerHTML = letras[i];
                         d.appendChild(letra);
-                        /*if(letras[i]=='M'){
-                            var br = document.createElement('br');
-                            d.appendChild(br);
-                        }
-                        else{*/
-                            var espaco = document.createTextNode(' ');
-                            d.appendChild(espaco);
-                        /*}*/
+                        
+                        var espaco = document.createTextNode(' ');
+                        d.appendChild(espaco);
+                        
                     }
                 }
             }
@@ -316,33 +280,65 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     }
 
                     
-    function DesenhaBotoes(){
-        
+    function DesenhaBotoes(){        
+        var bdicas = document.getElementById('dica'); 
+        var tCustoDica = document.getElementById('textocustodica');
+        var cDica = document.getElementById('custodica');
+        var bdesistir = document.getElementById('desistir');
 
-        var b = document.getElementById('botoes');
+        if(id_adversario==0){
+        	bdicas.setAttribute('onclick','');
+        	bdicas.innerHTML = "Aguarde...";
+        }
+        else{
+        	bdicas.setAttribute('onclick','ComprarDica()');
+        	bdicas.innerHTML = "Dica";
+        }
 
-        var dicas = document.createElement('button');
-        dicas.setAttribute('class','btn btn-warning');
-        dicas.setAttribute('onclick','ComprarDica()');  
-        dicas.innerHTML = "Dica";
+        if(qtddicas<3){
+        	cDica.style.display = "inline";
+        	if(qtddicas==2){
+        		cDica.innerHTML = '5';
+        	}
+        	else{
+        		if(qtddicas==1){
+        			cDica.innerHTML = '3';
+        		}
+        		else{        		
+        			cDica.innerHTML = '1';
+        		}        		
+        	}
+        	
+        }
+        else{
+        	bdicas.innerHTML = "Sem Dicas";
+        	bdicas.setAttribute('onclick','');
+        	tCustoDica.innerHTML = "Não há mais dicas!"
+        	cDica.style.display = "none";
+        	
+        }      
 
-        
 
-        var desistir = document.createElement('button');
-        desistir.setAttribute('class','btn btn-danger');
-        desistir.setAttribute('onclick','Desistir()');
-        desistir.innerHTML = "Desistir";
+        if(id_vencedor!=0)
+        {	
+        	bdicas.setAttribute('onclick','');
+        	bdesistir.setAttribute('onclick','');
+        	if(id_vencedor==id_sessao){
+    			bdesistir.innerHTML = "(◉ω◉)";
+    			bdicas.innerHTML	= "(◉ω◉)";
+        	}
+        	else{
+        		bdesistir.innerHTML = "¯\\_(ツ)_/¯";	
+        		bdicas.innerHTML	= "¯\\_(ツ)_/¯";
+        	}
+        }
+        else{
+        	bdesistir.setAttribute('onclick','Desistir()');;
+        	bdesistir.innerHTML = "Desistir"	
+        }               
 
-        dicas.style.width = "85%";
-        desistir.style.width = "85%";
-
-        var sp = document.createElement('br');        
-
-        b.innerHTML = "";
-        b.appendChild(dicas);
-        b.appendChild(sp);        
-        b.appendChild(desistir); 
     }
+
     function DesenhaForca(id,erros){
         var b = document.getElementById(id);
         if(b.innerHTML.indexOf(erros+'.jpeg')==-1){
@@ -357,6 +353,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         }
         
     }
+
     function DesenhaNomeJogador(id,nome){
         var b = document.getElementById(id);
         
@@ -371,10 +368,10 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
     function AtualizaTela(){
         clearTimeout(refresher);
-        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
-        var letras_escolhidas = "";
-        var nome_adversario = "";
-        var nome_usuario = "";  
+        idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
+        letras_escolhidas = "";
+        nome_adversario = "";
+        nome_usuario = "";  
         var cabec = {idSala: idSala};    
             $.ajax({
                 type: "post",
@@ -389,7 +386,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 
                     var retorno = JSON.parse(response);
                      
-                    var finaliza_sala = retorno['sala'][1]['sala_finalizada'];
+                    finaliza_sala = retorno['sala'][1]['sala_finalizada'];
 
                     if (finaliza_sala == 'S'){
                         window.location.href = "menu.php";
@@ -398,11 +395,11 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario']);
                     DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario']);
 
-                    var id_usuario = retorno['sala'][1]['id_usuario'];
-                    var id_adversario = retorno['sala'][1]['id_adversario'];
-                    var id_palavra = retorno['sala'][1]['id_palavra'];
-                    var id_vencedor = retorno['sala'][1]['id_vencedor'];
-                    var id_jogador_vez = retorno['sala'][1]['id_jogador_vez'];
+                    id_usuario = retorno['sala'][1]['id_usuario'];
+                    id_adversario = retorno['sala'][1]['id_adversario'];
+                    id_palavra = retorno['sala'][1]['id_palavra'];
+                    id_vencedor = retorno['sala'][1]['id_vencedor'];
+                    id_jogador_vez = retorno['sala'][1]['id_jogador_vez'];
                     
                     nome_usuario = retorno['usuario'][1]['login'];
                     DesenhaNomeJogador('nome_desafiado',nome_usuario);
@@ -412,7 +409,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                         DesenhaNomeJogador('nome_desafiante',nome_adversario);
                     }
 
-                    var credito;
+                    credito = 0;
                     if(id_sessao==id_usuario){
                         credito = retorno['usuario'][1]['creditos'];
                         DesenhaCredito(credito);
@@ -423,7 +420,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     }
 
                     if(id_palavra!=0){
-                        var dicas = retorno['palavra'][1]['dicas'].split(",");
+                        dicas = retorno['palavra'][1]['dicas'].split(",");
                         palavra = retorno['palavra'][1]['palavra'];
                         for(var k in retorno['letras']) {
                             letras_escolhidas = letras_escolhidas + " " + retorno['letras'][k]['letra'];
@@ -431,11 +428,11 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                     
                         if(id_sessao==id_usuario){
 
-                            var qtddicas = retorno['sala'][1]['dicas_usuario'];                             
+                            qtddicas = retorno['sala'][1]['dicas_usuario'];                             
                             DesenhaDicas(qtddicas,dicas[0],dicas[1],dicas[2]);
                         }
                         else{
-                            var qtddicas = retorno['sala'][1]['dicas_adversario'];
+                            qtddicas = retorno['sala'][1]['dicas_adversario'];
                             DesenhaDicas(qtddicas,dicas[0],dicas[1],dicas[2]);
                         }
                     }
@@ -464,12 +461,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         if(letra!=''){
             parar();
         }
-        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
-        var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
-        var idUsuario = "<?php echo $dadosPartida[1]['id_usuario']; ?>";
-        var idAdversario = "<?php echo $dadosPartida[1]['id_adversario']; ?>";
-
-        var cabec = {idSala: idSala,idJogador: idJogador,letra: letra};   
+        var cabec = {idSala: idSala,idJogador: id_sessao,letra: letra};   
         $.ajax({
             type: "post",
             url: "lib/php/insere-letra.php",
@@ -480,17 +472,14 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
                 /*window.alert(response);*/
                 AtualizaTela();
             }      
-        });
-        
+        });        
         
         return true;
     }
 
     function ComprarDica(){
         clearTimeout(refresher);
-        var idJogador = "<?php echo $_SESSION['user']['id_usuario']; ?>";
-        var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
-        var cabec = {idSala: idSala,idJogador: idJogador};   
+        var cabec = {idSala: idSala,idJogador: id_sessao};   
         $.ajax({
             type: "post",
             url: "lib/php/compra-dica.php",
@@ -499,15 +488,14 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
             success: function(response)
             {
                /*window.alert(response);*/
-                
+        		AtualizaTela();        
             }      
         });
-        AtualizaTela();
+        
     }
 
     function FinalizaSala(tempo){
         
-            var idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
             var cabec = {idSala: idSala};   
             $.ajax({
                 type: "post",
