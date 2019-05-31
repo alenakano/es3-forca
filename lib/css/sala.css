@@ -84,18 +84,21 @@
 {
     overflow: hidden;
     font-weight: bold;
-    font-size: 32px;                         
+    font-size: 42px;                         
     display: inline-block;        
-    color: black;               
+    color: black;
+    font-family: Verdana;
+
 }
 
 .letras-waiting-play
 {
     overflow: hidden;
     font-weight: bold;
-    font-size: 24px;                         
+    font-size: 32px;                         
     display: inline-block;        
     color: black;               
+    font-family: Verdana;
 }
 
 .painel
@@ -112,7 +115,7 @@
     vertical-align: middle;
     margin-top: -20px;
     margin-bottom: 1px;
-    height: 150px;"         
+    height: 145px;"         
 }
 
 .letras-selecao
