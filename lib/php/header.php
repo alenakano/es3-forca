@@ -63,7 +63,7 @@
                     <div class="column"  id="creditos">
                     </div>
                     <div class="column" style="margin-left: 17px;">                    
-                        <img src="img/coin.png" alt="coin" style="width: 24px;height: 24px;">
+                        <img src="img/coin.png" alt="coin" style="width: 22px;height: 22px;">
                     </div>
                 </div>          
                 <div class="row" >
