@@ -10,7 +10,8 @@
         background-color: white;
         padding: 3px; 
         border-radius: 15px;
-        padding-top: 2px;        
+        padding-top: 0px;  
+
     }
 
     .dashboard-form {
@@ -18,12 +19,28 @@
         padding: 5px; 
         border-radius: 5px;
         box-shadow: 0px 5px 5px 1px #888888;
+
     }
 
 
     .title {
-        font-family: 'Fascinate Inline', cursive;
-        font-size: 30px;
+        font-family: 'Algerian';
+        src: url('lib/font/Algerian.tff');
+        font-size: 28px;
+        vertical-align: middle;
+        text-align: center;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #8B795E;
+        background: -webkit-linear-gradient(#8B795E, #000000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+    }
+
+    .title2{
+        font-family: 'Algerian';
+        src: url('lib/font/Algerian.tff');
+        font-size: 28px;
         vertical-align: middle;
         text-align: center;
     }

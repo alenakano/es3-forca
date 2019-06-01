@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("conexao.dao.php");
+include_once("atualiza-logs.php");
 
 
 $sala = $_REQUEST['sala'];
@@ -43,6 +44,7 @@ if(!$response)
 }
 else
 {
+    Log::AtualizarJogador($idUsuario);
     echo "Nova sala cadastrada com sucesso!". $numRandom;
 }
 

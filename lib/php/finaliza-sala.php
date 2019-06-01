@@ -1,8 +1,10 @@
 <?php
 include_once("conexao.dao.php");
-
+include_once("atualiza-logs.php");
 
 $idSala = $_REQUEST['idSala'];
+  
+Log::AtualizarSala($idSala);
 
 $sqlFinalizaSala = 
 "UPDATE forca_sala S

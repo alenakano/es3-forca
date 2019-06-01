@@ -1,12 +1,17 @@
 <?php
 include("conexao.dao.php");
 
-$sqlInclude = "INSERT INTO forca_usuario (NOME, LOGIN, SENHA, PERFIL, CREDITOS) VALUES (?0, ?1, ?2, 'pla', 50)";
+$sqlInclude = "INSERT INTO forca_usuario (NOME, LOGIN, SENHA, ULTIMA_INTERACAO, PERFIL, CREDITOS) VALUES (?0, ?1, ?2, ?3, 'pla', 50)";
+
+date_default_timezone_set('America/Sao_Paulo');
+
+$dataHora = date('Y-m-d H:i:s');
 
 $parametros = array(
     $_REQUEST['cadastroNome'], 
     $_REQUEST['cadastroLogin'], 
-    md5($_REQUEST['cadastroSenha'])
+    md5($_REQUEST['cadastroSenha']),
+    $dataHora
 );
 
 $response = Conexao::ExecutarQuery($sqlInclude, $parametros);

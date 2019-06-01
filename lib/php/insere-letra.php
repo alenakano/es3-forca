@@ -1,10 +1,14 @@
 <?php
 include_once("conexao.dao.php");
 include_once("querys.php");
+include_once("atualiza-logs.php"); 
 
 $idSala = $_REQUEST['idSala'];
 $letra = $_REQUEST['letra'];
 $idJogador = $_REQUEST['idJogador'];
+
+ 
+Log::AtualizarJogador($idJogador);
 
 $dadosSala = Busca::BuscaPartida($idSala);
 $idAdversario = $dadosSala[1]['id_adversario'];
@@ -42,7 +46,7 @@ if($dadosSala[1]['id_vencedor']==0 && $dadosSala[1]['sala_finalizada']==''){
 	 				   }
 					}
 					if($cont == count($arrPalavra)){				
-						atualizaGanhador($idSala,$idJogador);
+						Busca::atualizaGanhador($idSala,$idJogador);
 					}
 				} 	
 				else {				
@@ -69,31 +73,10 @@ if($dadosSala[1]['id_vencedor']==0 && $dadosSala[1]['sala_finalizada']==''){
 						}
 					}
 				echo $idVez;				
-			  	trocaJogador($idSala,$errUsu,$errAdv,$idVez,$idVencedor);	
+			  	Busca::trocaJogador($idSala,$errUsu,$errAdv,$idVez,$idVencedor);	
 				}
 			}	
 	}
 }
-function atualizaGanhador($idSala,$idJogador){
-	$sqlAtualizaGanhador = 
-					"UPDATE forca_sala S
-					SET
-					S.ID_VENCEDOR = {$idJogador}
-					WHERE S.ID_SALA = {$idSala}
-					";
-	return Conexao::ExecutarQuery($sqlAtualizaGanhador);					
-}
-function trocaJogador($idSala,$erros_usuario,$erros_adversario,$id_jogador_vez,$id_vencedor){
-	$sqlTrocaJogador = 
-					"UPDATE forca_sala S
-					SET
-					S.ERROS_USUARIO = {$erros_usuario},
-					S.ERROS_ADVERSARIO = {$erros_adversario},
-					S.ID_JOGADOR_VEZ = {$id_jogador_vez},
-					S.ID_VENCEDOR = {$id_vencedor}
-					WHERE S.ID_SALA = {$idSala}
-					";
-					
-	return Conexao::ExecutarQuery($sqlTrocaJogador);						
-}
+
 ?>

@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include("conexao.dao.php");
+  include_once("atualiza-logs.php");
 
 if(isset($_REQUEST['login'], $_REQUEST['senha']))
 {
@@ -37,7 +38,8 @@ if(isset($_REQUEST['login'], $_REQUEST['senha']))
             echo "pla";
         }
 
-        include("atualiza-log.php");
+        
+        Log::AtualizarJogador($_SESSION['user']['id_usuario']);
         
     }
 }

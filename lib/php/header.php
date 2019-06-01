@@ -45,6 +45,7 @@
     <script type="text/javascript" src="lib/js/header.js"></script>
 
     <script type="text/javascript" src="lib/js/desenha-credito.js"></script>
+    <script type="text/javascript" src="lib/js/desenha-vitorias.js"></script>
 
 </head>
 

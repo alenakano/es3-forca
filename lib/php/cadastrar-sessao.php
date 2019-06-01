@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("conexao.dao.php");
+include_once("atualiza-logs.php");
 
 date_default_timezone_set('America/Sao_Paulo');
 $sqlInsertSessao = "INSERT INTO forca_sala 
@@ -35,7 +36,10 @@ if(!$response)
     echo "Não foi possivel cadastrar esta nova sala. \nErro: ". $mensagemErro;
 }
 else
-{
+{    
+
+    Log::AtualizarJogador($idUsuario);
+
     echo "Nova sala cadastrada com sucesso!";
 }
 

@@ -1,7 +1,7 @@
 <?php
 include_once("lib/php/header.php");  
-include_once("lib/php/conexao.dao.php");
 include_once("lib/php/cabecalho3.php");
+include_once("lib/php/querys.php");
 
 if(!isset($_SESSION['user']))
 {
@@ -14,6 +14,9 @@ if(empty($dadosPartida))
 {
     echo "<script>location.href = 'menu.php';</script>";
 }
+
+$qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
+$idTema = $dadosPartida[1]['id_tema'];
    
 ?>
 
@@ -23,7 +26,7 @@ if(empty($dadosPartida))
 
 <div class="container" style="margin-top:0px;padding-top: 0px">
     <div class="dashboard col-sm-12" align="center" style="margin-top:0px; margin-bottom:0px;">
-        <div class="row" style="margin-top:5px; margin-bottom:0px;">
+        <div class="row" style="padding-top:6px; margin-bottom:0px;">
             <div class="col-sm-12" id="palavra">                                
             </div>
         </div>
@@ -32,29 +35,36 @@ if(empty($dadosPartida))
                 <h1 id="imagem_desafiado">
                 </h1>
                 
-                <h1 id="nome_desafiado">
+                <h1 class="nomes" id="nome_desafiado">
                 </h1>
             	
             </div>
             <div class="col-sm-6 dashboard-tips" align="center" >
-               <br>
+                <br>
+               <span class="titulos-tips">
                TEMA:
-               <br>
+                </span>
+                <br>
+               <span class="tips">
                <?php
                echo($dadosPartida[1]['tema'])
-               ?>
-               <br>               
+               ?>               
+               </span>
                <br>
+               <br>               
+               <span class="titulos-tips">
                DICAS:
-               <h1 id="dica1"></h1>
-               <h1 id="dica2"></h1>
-               <h1 id="dica3"></h1>
+                </span>
+                <br>
+               <h1 id="dica1" class="tips"></h1>
+               <h1 id="dica2" class="tips"></h1>
+               <h1 id="dica3" class="tips"></h1>
             </div>
             <div class="col-sm-3" align="center">                                       
                 <h1 id="imagem_desafiante">
                 </h1>
                            
-                <h1 id="nome_desafiante">
+                <h1 class="nomes" id="nome_desafiante">
                 </h1>
               	
             </div>
@@ -101,6 +111,10 @@ if(empty($dadosPartida))
     var finaliza_sala = "";
     var dicas = "";
     var qtddicas = 0;
+    var qtdVitorias = "<?php echo $qtdVitorias?>";
+    var idTema = "<?php echo $idTema?>";
+    
+    DesenhaVitorias(qtdVitorias);
     
     clearTimeout(refresher);
    
@@ -154,7 +168,7 @@ if(empty($dadosPartida))
                 texto.setAttribute('class','letras-waiting');
                 texto.innerHTML = "Aguardando Adversário...!"; 
                 d.appendChild(texto);                
-                refresher = setTimeout(function(){AtualizaTela()}, 500);   
+                refresher = setTimeout(function(){AtualizaTela()}, 100);   
 
             }
             else{
@@ -169,7 +183,7 @@ if(empty($dadosPartida))
                     texto.setAttribute('class','letras-waiting-play'); 
                     texto.innerHTML = "Adversário..."; 
                     d.appendChild(texto);
-                    refresher = setTimeout(function(){AtualizaTela()}, 500);
+                    refresher = setTimeout(function(){AtualizaTela()}, 100);
                 }
                 else{
 
@@ -235,7 +249,7 @@ if(empty($dadosPartida))
     function DesenhaDicas(qtdDicas,dica1,dica2,dica3){
         
         var d = document.getElementById('dica1');
-        d.setAttribute('class','letras-dicas');
+        d.setAttribute('class','tips');
         d.innerHTML = "";
         if(qtdDicas>0){
         var t = document.createTextNode(dica1);   
@@ -243,7 +257,7 @@ if(empty($dadosPartida))
         }
 
         d = document.getElementById('dica2');
-        d.setAttribute('class','letras-dicas');
+        d.setAttribute('class','tips');
         d.innerHTML = "";
         if(qtdDicas>1){
         t = document.createTextNode(dica2);   
@@ -252,7 +266,7 @@ if(empty($dadosPartida))
 
         
         d = document.getElementById('dica3');
-        d.setAttribute('class','letras-dicas');
+        d.setAttribute('class','tips');
         d.innerHTML = "";
         if(qtdDicas>2){
         t = document.createTextNode(dica3);   
@@ -267,7 +281,7 @@ if(empty($dadosPartida))
         var cDica = document.getElementById('custodica');
         var bdesistir = document.getElementById('desistir');
 
-        if(id_adversario==0){
+        if(id_adversario==0 || id_jogador_vez!=id_sessao){
         	bdicas.setAttribute('onclick','');
         	bdicas.innerHTML = "Aguarde...";
         }
@@ -366,10 +380,7 @@ if(empty($dadosPartida))
                      
                     finaliza_sala = retorno['sala'][1]['sala_finalizada'];
 
-                    if (finaliza_sala == 'S'){
-                        window.location.href = "menu.php";
-                    }
-                    
+                                        
                     DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario']);
                     DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario']);
 
@@ -389,10 +400,12 @@ if(empty($dadosPartida))
 
                     credito = 0;
                     if(id_sessao==id_usuario){
+                        qtdVitorias = retorno['qtdvitusu'];
                         credito = retorno['usuario'][1]['creditos'];
                         DesenhaCredito(credito);
                     }
                     else{
+                        qtdVitorias = retorno['qtdvitadv'];
                         credito = retorno['adversario'][1]['creditos'];
                         DesenhaCredito(credito);
                     }
@@ -423,6 +436,7 @@ if(empty($dadosPartida))
                         DesenhaTimer(tempo_timer);
                     }
                     
+                    DesenhaVitorias(qtdVitorias);
                     DesenhaCentro(id_sessao,id_adversario,id_vencedor,id_jogador_vez,letras_escolhidas,palavra);
                     DesenhaPalavra(palavra,letras_escolhidas);
                     DesenhaBotoes();          
@@ -473,7 +487,7 @@ if(empty($dadosPartida))
     }
 
     function FinalizaSala(tempo){
-        
+            clearTimeout(refresher);
             var cabec = {idSala: idSala};   
             $.ajax({
                 type: "post",
@@ -482,20 +496,60 @@ if(empty($dadosPartida))
                 data: cabec,
                 success: function(response)
                 {
-                   setTimeout(function(){window.location.href = "menu.php";},tempo);  
-                   /*
-                   window.alert(response);      */   
+                   setTimeout(function(){NovaPartida()},tempo);  
+                   
+                   /*window.alert(response);      */  
                 }      
-            });
-        
+            });        
         
     }
 
 
     function Desistir(){
-        if(window.confirm("Deseja desistir da partida?"))
-        {
-            FinalizaSala(0);
+        clearTimeout(refresher);
+        var cabec = {idSala: idSala,idJogador: id_sessao};    
+            $.ajax({
+                type: "post",
+                url: "lib/php/desistir-partida.php",
+                assync: true,
+                data: cabec,
+                success: function(response)
+                {                    
+                    if(response === '0'){
+                        FinalizaSala(0);
+                    }
+                    else{
+                        AtualizaTela();
+                    }                  
+
+                    
+                }      
+           });
+    }
+
+    function NovaPartida(){
+        if(id_adversario==0){
+            window.location.href = "menu.php";
+        }
+        else{
+            if(window.confirm("Deseja jogar uma nova partida?")){
+                var cabec = {idTema: idTema,idUsuario: id_sessao,senha: idSala,privado: 'S'}; 
+                $.ajax({
+                    type: "post",
+                    url: "lib/php/cadastrar-sessao.php",
+                    data: cabec,
+                    assync: true,
+                    success: function(response)
+                    {
+                    /*window.alert(response);
+                    /*location.reload(); */
+                        location.href = "sala.php"; 
+                    }      
+                }); 
+            }
+            else{
+                window.location.href = "menu.php";   
+            }
         }
     }
   

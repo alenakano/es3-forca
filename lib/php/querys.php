@@ -62,6 +62,43 @@ class Busca
         return $dadosUsuario;
 
     }
+    public static function QtdVitorias($id_usuario)
+    {
+        $sqlqtdvit = 
+        "SELECT COUNT(*) 
+        FROM        
+            forca_SALA S        
+        WHERE         
+            S.ID_VENCEDOR = {$id_usuario}";
+
+        $qtdVitorias = Conexao::ExecutarQuery($sqlqtdvit);
+        return $qtdVitorias[1]['COUNT(*)'];
+
+    }
+    public static function atualizaGanhador($idSala,$idJogador){
+        $sqlAtualizaGanhador = 
+                        "UPDATE forca_sala S
+                        SET
+                        S.ID_VENCEDOR = {$idJogador}
+                        WHERE S.ID_SALA = {$idSala}
+                        ";
+        return Conexao::ExecutarQuery($sqlAtualizaGanhador);                    
+    }
+    
+    public static function trocaJogador($idSala,$erros_usuario,$erros_adversario,$id_jogador_vez,$id_vencedor){
+        $sqlTrocaJogador = 
+                        "UPDATE forca_sala S
+                        SET
+                        S.ERROS_USUARIO = {$erros_usuario},
+                        S.ERROS_ADVERSARIO = {$erros_adversario},
+                        S.ID_JOGADOR_VEZ = {$id_jogador_vez},
+                        S.ID_VENCEDOR = {$id_vencedor}
+                        WHERE S.ID_SALA = {$idSala}
+                        ";
+                        
+        return Conexao::ExecutarQuery($sqlTrocaJogador);                        
+    }
+
 }
 
 ?>

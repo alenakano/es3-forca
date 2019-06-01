@@ -1,8 +1,7 @@
-﻿<?php 
+<?php
 include_once("lib/php/header.php");
-include_once("lib/php/conexao.dao.php");
 include_once("lib/php/cabecalho2.php");
-
+include_once("lib/php/querys.php");
 
 if(!isset($_SESSION['user']))
 {
@@ -19,7 +18,7 @@ while($i <= count($dadosSessao)){
  $i++;   
 }
 $creditos = $dadosJogador[1]['creditos'];
-
+$qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
 
 ?>
 
@@ -29,13 +28,14 @@ $creditos = $dadosJogador[1]['creditos'];
 <div class="container">       
 
     <div class="dashboard">
-        <div style="width: 100%;text-align: center;vertical-align: middle;height: 50px;" >
-            <span class="title">                
-                    Salas Disponiveis:
-                    &nbsp;&nbsp;<button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
-                    &nbsp;<button class="btn btn-danger" onclick="AtualizarJogos()">Ranking</button>
-                
-            </span>            
+        <div class="row" style="width: 100%;text-align: center;vertical-align: middle;height: 40px;" >
+            <div class="col-sm-4 title">                           
+                    Salas Disponiveis:            
+            </div>
+            <div class="col-sm-8 title2" style="text-align: right">                
+                    <button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
+                    &nbsp;<button class="btn btn-danger" onclick="window.location.href='ranking.php';">Ranking</button>
+            </div>       
         </div>         
         
         <?php $i = 1; while($i <= count($dadosSessao)): ?>
@@ -111,8 +111,11 @@ $creditos = $dadosJogador[1]['creditos'];
 </div>
 <script type="text/javascript">
 
+    var credito = "<?php echo $creditos?>";
+    var qtdVitorias = "<?php echo $qtdVitorias?>";
 
-    DesenhaCredito("<?php echo $creditos?>");
+    DesenhaCredito(credito);
+    DesenhaVitorias(qtdVitorias);
 
     function PaginaAdministracao()
     {
@@ -158,7 +161,7 @@ $creditos = $dadosJogador[1]['creditos'];
             assync: true,
             success: function(response)
             {
-                window.alert(response);
+                /*window.alert(response);
                 /*location.reload(); */
                 location.href = "sala.php"; 
             }      

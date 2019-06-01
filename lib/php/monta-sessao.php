@@ -10,7 +10,9 @@ $sql =
         forca_usuario U
     WHERE 
         S.ID_TEMA = T.ID_TEMA AND        
-        S.ID_USUARIO = U.ID_USUARIO AND S.SALA_FINALIZADA = '';";
+        S.ID_USUARIO = U.ID_USUARIO AND
+        S.ID_ADVERSARIO = 0 AND 
+        S.SALA_FINALIZADA = '';";
         //Thiago adiciou o codigo da SALA_FINALIZADA acima
 
 $dadosSessao = Conexao::ExecutarQuery($sql);

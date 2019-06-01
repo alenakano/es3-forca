@@ -10,6 +10,8 @@ $responseLetras = Busca::BuscaLetras($idSala);
 $responsePalavra = Busca::BuscaPalavra($responseSala[1]['id_palavra']);
 $responseAdversario = Busca::BuscaJogador($responseSala[1]['id_adversario']);
 $responseUsuario = Busca::BuscaJogador($responseSala[1]['id_usuario']);
+$responseQtdVitUsu = Busca::QtdVitorias($responseSala[1]['id_usuario']);
+$responseQtdVitAdv = Busca::QtdVitorias($responseSala[1]['id_adversario']);
 
 if(!empty($responsePalavra)){
 	$response = array(
@@ -18,6 +20,8 @@ if(!empty($responsePalavra)){
 	    "palavra" => $responsePalavra,
 	    "adversario" => $responseAdversario,
 	    "usuario" => $responseUsuario,
+	    "qtdvitusu" => $responseQtdVitUsu,
+	    "qtdvitadv" => $responseQtdVitAdv,
 	);
 }
 else{
@@ -26,7 +30,9 @@ else{
 	    "letras" => $responseLetras,
 	    "palavra" => 0,
 	    "adversario" => 0,
-	  	"usuario" => $responseUsuario,  
+	  	"usuario" => $responseUsuario,
+	  	"qtdvitusu" => $responseQtdVitUsu,
+	    "qtdvitadv" => 0,  
 	);
 }
 

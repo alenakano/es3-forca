@@ -69,36 +69,61 @@
     font-weight: bold;
     font-size: 20px;                         
     display: inline-block;        
-    color: black;               
+    color: black;
+            -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #333333;
+        background: -webkit-linear-gradient(#8B795E, #000000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 1px 0px 1px #000000;                
 }
 .letras-vit_det
 {
     overflow: hidden;
-    font-weight: bold;
-    font-size: 72px;                         
+    font-size: 68px;                         
     display: inline-block;        
-    color: black;               
+    color: black; 
+    font-family: 'Algerian';
+    src: url('lib/font/Algerian.tff');
+    color: #00000;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #8B795E;
+        background: -webkit-linear-gradient(#8B795E, #000000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;              
 }
 
 .letras-waiting
 {
     overflow: hidden;
-    font-weight: bold;
     font-size: 42px;                         
     display: inline-block;        
     color: black;
-    font-family: Verdana;
+    font-family: 'Algerian';
+    src: url('lib/font/Algerian.tff');
+    color: #00000;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #8B795E;
+        background: -webkit-linear-gradient(#8B795E, #000000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 
 }
 
 .letras-waiting-play
 {
     overflow: hidden;
-    font-weight: bold;
     font-size: 32px;                         
     display: inline-block;        
     color: black;               
-    font-family: Verdana;
+    font-family: 'Algerian';
+    src: url('lib/font/Algerian.tff');
+    color: #00000;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #8B795E;
+        background: -webkit-linear-gradient(#8B795E, #000000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 }
 
 .painel
@@ -175,13 +200,34 @@
     background-size: cover;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 18px;
-    text-shadow: 1px 1px 1px black;  
-    color: #F0FFF0;
+    
     border-style: solid;
     border-width: 3px;
-    border-image: url(../../img/corda.jpg) 5 / 5px repeat; 
+    border-image: url(../../img/corda.jpg) 5 / 5px repeat;     
 }
+
+.titulos-tips{
+    font-size: 20px;
+    font-weight: bold; 
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #333333;
+        background: -webkit-linear-gradient(#8B795E, #000000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 1px 0px 1px #000000; 
+}
+
+.tips{
+    font-size: 20px;
+    font-weight: bold; 
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #CCCCCC;
+        background: -webkit-linear-gradient(#888888, #FFFFFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 0px 2px #000000;
+}
+
 
 .coluna-timer{
     margin-top: 5px;

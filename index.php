@@ -1,6 +1,5 @@
 <?php 
 include_once("lib/php/header.php");
-include_once("lib/php/conexao.dao.php");
 include_once("lib/php/cabecalho1.php");
 
 if(isset($_SESSION['user']))
@@ -8,70 +7,42 @@ if(isset($_SESSION['user']))
 	echo "<script>location.href = 'menu.php';</script>";
 }
 
-
-
-$sqlMelhoresJogadores = 
-	"SELECT * from forca_score s, forca_usuario u 
-	 where u.id_usuario = s.id_usuario order by s.score desc
-";
-
-$score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
-
 ?>
-
 <script type="text/javascript" src="./lib/js/login.js"></script>
 	
 
 <div class="container"  style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">
 	<div class="dashboard" align="center">			
 		<div class="row">
-			<div class="col-sm-5">
-				<div class="form-group dashboard-form">
+			<div class="col-sm-4" style="padding-right: 0px;padding-top: 5px;height: 100%;">
+				<div class="form-group dashboard-form" >
 					<form id="formCredenciais">
 						<label>Login:</label>
-						<input type="text" name="login" id="login" class="form-control"><br>
+						<input type="text" name="login" id="login" style="width: 98%;" class="form-control"><br>
 						<label>Senha:</label>
-						<input type="password" name="senha" id="senha" class="form-control"><br>
+						<input type="password" name="senha" id="senha" style="width: 98%;" class="form-control"><br>
 						<!--<label>Modo de Jogo</label><br>
 						<select name="game-type" class="form-control">
 							<option value="1">Single Player</option>
 							<option value="2">Multi player</option>
 						</select><br>-->
 					</form>
-					<button class="btn btn-success" style="width: 100%;" onclick="return RealizarLogin()">
+					<button class="btn btn-success" style="width: 98%;" onclick="return RealizarLogin()">
 						JOGAR!
 					</button>
 					<br><br>
-					<button class="btn btn-warning" style="width: 100%;" data-toggle="modal" data-target="#formCadastroModal">
+					<button class="btn btn-warning" style="width: 98%;" data-toggle="modal" data-target="#formCadastroModal">
 						Cadastro
 					</button>
+					<br>
+					<br>
+					
 				</div>
 
 			</div>
 
-			<div class="col-sm-7">
-				<p>
-				<table id="tabelaResultado" class="table table-hover table-sm" >
-					<thead align="center" style="background-color: #ff5000; color: white; border-radius: 10px;">
-						<tr>
-							<td style="color: black; background-color: white;" align="left">Melhores Jogadores</td>
-							<td style="color: black; background-color: white;"></td>
-						</tr>
-						<tr>
-							<td align="left">Nickname do Jogador:</td>
-							<td align="center">Pontuação:</td>
-						</tr>
-					</thead>
-					<tbody>
-					<?php $contScore = 1; while($contScore <= count($score)):?>
-						<tr>
-							<td><?=$score[$contScore]['login']?></td>
-							<td align="center"><?=$score[$contScore]['score']?> vitórias</td>
-						</tr>
-					<?php $contScore++; endwhile ?>
-					</tbody>
-				</table>
-				</p>
+			<div class="col-sm-8" style="padding-left: 5px;">
+				<img src="img/splash.png" alt="Jogo da Forca" width="100%" height="auto" style="border-radius: 15px;padding-top: 2px" >
 			</div>
 		</div>
 	</div>	
@@ -106,5 +77,13 @@ $score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
     </div>
   </div>
 </div>
+<script type="text/javascript">
+	document.addEventListener('keypress', function(e){
+       if(e.which == 13){
+          RealizarLogin();
+       }
+    }, false);
+</script>
 </body>
+
 </html>
