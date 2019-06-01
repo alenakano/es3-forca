@@ -1,6 +1,7 @@
 <?php
 include_once("lib/php/header.php");  
 include_once("lib/php/conexao.dao.php");
+include_once("lib/php/cabecalho3.php");
 
 if(!isset($_SESSION['user']))
 {
@@ -13,27 +14,6 @@ if(empty($dadosPartida))
 {
     echo "<script>location.href = 'menu.php';</script>";
 }
-/*
-$palavra = "";
-$dica1 = "";
-$dica2 = "";
-$dica3 = "";
-
-if($dadosPartida[1]['id_palavra']!=0){
-    $palavra = $dadosPalavra[1]['palavra'];
-    $dicas = explode(",", $dadosPalavra[1]['dicas']);
-    $dica1 = $dicas[0];
-    $dica2 = $dicas[1];
-    $dica3 = $dicas[2];
-}
-
-$nomeAdversario = "&nbsp;";
-
-if((isset($dadosAdversario[1]))) {                
-    $nomeAdversario = $dadosAdversario[1]['login'];
-}
-$letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));   
-*/
    
 ?>
 
@@ -41,23 +21,22 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
 <link rel="stylesheet" type="text/css" href="./lib/css/sala.css">
 
 
-
-<body>
-
 <div class="container" style="margin-top:0px;padding-top: 0px">
     <div class="dashboard col-sm-12" align="center" style="margin-top:0px; margin-bottom:0px;">
-        <div class="row" style="margin-top:5px; margin-bottom:5px;">
+        <div class="row" style="margin-top:5px; margin-bottom:0px;">
             <div class="col-sm-12" id="palavra">                                
             </div>
         </div>
-        <div class="row" style="margin-top: 0px;width: 100%;" align="center">
+        <div class="row" style="height: 100%;width: 100%;" align="center">
             <div class="col-sm-3" align="center">                                           
                 <h1 id="imagem_desafiado">
                 </h1>
+                
                 <h1 id="nome_desafiado">
                 </h1>
+            	
             </div>
-            <div class="col-sm-6 dashboard-tips" align="center" style="margin-top:0px; margin-bottom:30px;">
+            <div class="col-sm-6 dashboard-tips" align="center" >
                <br>
                TEMA:
                <br>
@@ -73,12 +52,14 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
             </div>
             <div class="col-sm-3" align="center">                                       
                 <h1 id="imagem_desafiante">
-                </h1>           
+                </h1>
+                           
                 <h1 id="nome_desafiante">
-                  </h1>
+                </h1>
+              	
             </div>
         </div>
-        <div class="row painel" align="center">
+        <div class="row painel" align="center" style="margin-top:3px; margin-bottom:1px;">
             <div class="col-sm-2 coluna-timer" >
                 <div id="timer" align="center" style="margin-top: 8px;">
                 </div>  
@@ -357,13 +338,10 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
     function DesenhaNomeJogador(id,nome){
         var b = document.getElementById(id);
         
-        var nomeJ = document.createElement('p');
-        nomeJ.setAttribute('class','letras-geral');
-        nomeJ.style.align = "center";
-        nomeJ.innerHTML = nome;
-
-        b.innerHTML = "";
-        b.appendChild(nomeJ);
+        b.setAttribute('class','letras-geral');
+        b.style.align = "center";
+        b.style.marginBottom = "0px";
+        b.innerHTML = nome;
     }
 
     function AtualizaTela(){
@@ -375,7 +353,7 @@ $letras_escolhidas = implode(" ",array_column($dadosLetras, 'letra'));
         var cabec = {idSala: idSala};    
             $.ajax({
                 type: "post",
-                url: "lib/php/atualiza-partida.php",
+                url: "lib/php/le-partida.php",
                 assync: true,
                 data: cabec,
                 success: function(response)

@@ -1,6 +1,5 @@
 <?php
 include_once("conexao.dao.php");
-include_once("querys.php");
 
 
 $idSala = $_REQUEST['idSala'];

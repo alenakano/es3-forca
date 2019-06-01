@@ -1,7 +1,7 @@
-﻿<?php 
-
+<?php 
 include_once("lib/php/header.php");
 include_once("lib/php/conexao.dao.php");
+include_once("lib/php/cabecalho1.php");
 
 if(isset($_SESSION['user']))
 {
@@ -16,11 +16,11 @@ $sqlMelhoresJogadores =
 ";
 
 $score = Conexao::ExecutarQuery($sqlMelhoresJogadores);
+
 ?>
 
 <script type="text/javascript" src="./lib/js/login.js"></script>
-
-<body>	
+	
 
 <div class="container"  style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">
 	<div class="dashboard" align="center">			

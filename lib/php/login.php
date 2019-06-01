@@ -36,6 +36,9 @@ if(isset($_REQUEST['login'], $_REQUEST['senha']))
         {
             echo "pla";
         }
+
+        include("atualiza-log.php");
+        
     }
 }
 else

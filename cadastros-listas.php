@@ -1,6 +1,7 @@
 <?php
 include_once("lib/php/header.php");  
 include_once("lib/php/conexao.dao.php");
+include_once("lib/php/cabecalho2.php");
 
 if(!isset($_SESSION['user']))
 {
@@ -22,8 +23,6 @@ $dadosUsuario = Conexao::ExecutarQuery($sqlUsuario);
 ?>
 
 <script src="./lib/js/cadastro-listas.js"></script>
-
-<body>
 
 <div class="container dashboard" style="margin-top: 2%; ">
 	<div class="row">

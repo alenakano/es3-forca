@@ -1,5 +1,7 @@
-﻿<?php include("lib/php/header.php");
-include("lib/php/conexao.dao.php");
+﻿<?php 
+include_once("lib/php/header.php");
+include_once("lib/php/conexao.dao.php");
+include_once("lib/php/cabecalho2.php");
 
 
 if(!isset($_SESSION['user']))
@@ -21,31 +23,8 @@ $creditos = $dadosJogador[1]['creditos'];
 
 ?>
 
-<style>
-    .jogo{
-        text-align: center;        
-        color: white;
-        height: 20%;
-        overflow: hidden;
-        padding: 10px;
-        font-weight: bold;
-        font-size: 20px;
-        width: 33%;
-        background-size: cover;
-        border-radius: 10px;
-        text-shadow: 4px 4px 2px black;
-        transition-duration: 0.4s;
-        display: inline-block;
-    }
-
-    .jogo:hover{
-        background-size: cover;
-        cursor:pointer;
-    }
-</style>
-
-
-<body>
+<!-- CSS de estilo de elementos do menu -->
+<link rel="stylesheet" type="text/css" href="./lib/css/menu.css">
 
 <div class="container">       
 
