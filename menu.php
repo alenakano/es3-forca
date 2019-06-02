@@ -28,16 +28,17 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
 <div class="container">       
 
     <div class="dashboard">
-        <div class="row" style="width: 100%;text-align: center;vertical-align: middle;height: 40px;" >
+        <div class="row" style="text-align: center;vertical-align: middle;height: 50px;padding-top: 3px; border-bottom: solid;border-width: 1px;border-color: #8B795E;padding-left: 10px;border-radius: 15px;" >
             <div class="col-sm-4 title">                           
                     Salas Disponiveis:            
             </div>
-            <div class="col-sm-8 title2" style="text-align: right">                
+            <div class="col-sm-7 title2" style="text-align: right">                
                     <button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
                     &nbsp;<button class="btn btn-danger" onclick="window.location.href='ranking.php';">Ranking</button>
             </div>       
         </div>         
-        
+        <br>
+        <div">            
         <?php $i = 1; while($i <= count($dadosSessao)): ?>
         
             <style>
@@ -67,7 +68,7 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
         <?php endif?>
 
         <?php $i++; endwhile?>
-    
+        </div>
     </div>
 </div>
 

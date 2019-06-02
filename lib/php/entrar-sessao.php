@@ -45,6 +45,7 @@ if(!$response)
 else
 {
     Log::AtualizarJogador($idUsuario);
+    Log::AtualizarSala($sala);
     echo "Nova sala cadastrada com sucesso!". $numRandom;
 }
 

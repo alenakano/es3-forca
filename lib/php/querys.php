@@ -99,6 +99,19 @@ class Busca
         return Conexao::ExecutarQuery($sqlTrocaJogador);                        
     }
 
+    public static function leRanking(){
+        $sqlRanking = 
+            "SELECT L.login,
+                COUNT(S.id_vencedor) AS vitorias 
+                FROM forca_USUARIO L 
+                INNER JOIN forca_sala S 
+                ON L.id_usuario = S.id_vencedor 
+                GROUP BY L.id_usuario
+                ORDER BY vitorias DESC
+                ";
+        return Conexao::ExecutarQuery($sqlRanking);    
+    }
+
 }
 
 ?>

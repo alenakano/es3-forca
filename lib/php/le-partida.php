@@ -13,6 +13,10 @@ $responseUsuario = Busca::BuscaJogador($responseSala[1]['id_usuario']);
 $responseQtdVitUsu = Busca::QtdVitorias($responseSala[1]['id_usuario']);
 $responseQtdVitAdv = Busca::QtdVitorias($responseSala[1]['id_adversario']);
 
+date_default_timezone_set('America/Sao_Paulo');
+
+$dataHora = date('Y-m-d H:i:s');
+
 if(!empty($responsePalavra)){
 	$response = array(
 	    "sala" => $responseSala,
@@ -22,6 +26,7 @@ if(!empty($responsePalavra)){
 	    "usuario" => $responseUsuario,
 	    "qtdvitusu" => $responseQtdVitUsu,
 	    "qtdvitadv" => $responseQtdVitAdv,
+	    "datahoraservidor" => $dataHora,
 	);
 }
 else{
@@ -32,7 +37,8 @@ else{
 	    "adversario" => 0,
 	  	"usuario" => $responseUsuario,
 	  	"qtdvitusu" => $responseQtdVitUsu,
-	    "qtdvitadv" => 0,  
+	    "qtdvitadv" => 0,
+	    "datahoraservidor" => $dataHora,  
 	);
 }
 

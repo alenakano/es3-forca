@@ -9,6 +9,7 @@ $numDicas = 0;
 $usuOuAdver = "";
  
 Log::AtualizarJogador($idJogador);
+Log::AtualizarSala($idSala);
 
 $dadosSala = Busca::BuscaPartida($idSala);
 $dadosJogador = Busca::BuscaJogador($idJogador);
@@ -47,7 +48,9 @@ if($dadosSala[1]['id_vencedor']==0 && $dadosSala[1]['sala_finalizada']==''){
 		atualizaCredito(-$custoDica,$idJogador);
 	}
 
-	function atualizaCredito($valor,$idJogador){
+	
+}
+function atualizaCredito($valor,$idJogador){
 		$sqlAtualizaCredito = 
 						"UPDATE forca_usuario U
 						SET
@@ -56,8 +59,8 @@ if($dadosSala[1]['id_vencedor']==0 && $dadosSala[1]['sala_finalizada']==''){
 						";
 		echo $sqlAtualizaCredito;
 		return Conexao::ExecutarQuery($sqlAtualizaCredito);					
-	}
-	function atualizaQtdDica($idSala,$usuOuAdver){
+}
+function atualizaQtdDica($idSala,$usuOuAdver){
 		if($usuOuAdver=='U'){
 			$sqlAtualizaQtdDica = 
 						"UPDATE forca_sala S
@@ -75,5 +78,4 @@ if($dadosSala[1]['id_vencedor']==0 && $dadosSala[1]['sala_finalizada']==''){
 						";
 		}
 		return Conexao::ExecutarQuery($sqlAtualizaQtdDica);					
-	}
 }

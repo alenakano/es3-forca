@@ -9,6 +9,7 @@ $idJogador = $_REQUEST['idJogador'];
 
  
 Log::AtualizarJogador($idJogador);
+Log::AtualizarSala($idSala);
 
 $dadosSala = Busca::BuscaPartida($idSala);
 $idAdversario = $dadosSala[1]['id_adversario'];

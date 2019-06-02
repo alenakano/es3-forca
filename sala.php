@@ -113,6 +113,10 @@ $idTema = $dadosPartida[1]['id_tema'];
     var qtddicas = 0;
     var qtdVitorias = "<?php echo $qtdVitorias?>";
     var idTema = "<?php echo $idTema?>";
+    var ultimaAtualizacaoSala;
+    var ultimaInteraçãoUsuario;
+    var ultimaInteraçãoAdversario;
+    var dataHoraServidor;
     
     DesenhaVitorias(qtdVitorias);
     
@@ -183,6 +187,7 @@ $idTema = $dadosPartida[1]['id_tema'];
                     texto.setAttribute('class','letras-waiting-play'); 
                     texto.innerHTML = "Adversário..."; 
                     d.appendChild(texto);
+                    AvaliaDesconexão();
                     refresher = setTimeout(function(){AtualizaTela()}, 100);
                 }
                 else{
@@ -214,6 +219,33 @@ $idTema = $dadosPartida[1]['id_tema'];
                     }
                 }
             }
+        }
+    }
+
+    function AvaliaDesconexão(){
+        /*var hora;
+        if(id_sessao==id_usuario){
+            hora = ultimaInteraçãoAdversario;            
+        }
+        else{
+            hora = ultimaInteraçãoUsuario;
+        }*/
+        if(dataHoraServidor.getTime() - ultimaAtualizacaoSala.getTime()>10000){
+        clearTimeout(refresher);
+        var cabec = {idSala: idSala,idJogador: id_sessao};    
+            $.ajax({
+                type: "post",
+                url: "lib/php/desconexao-partida.php",
+                assync: true,
+                data: cabec,
+                success: function(response)
+                {                    
+                    window.alert(response);
+                    AtualizaSala();                      
+
+                    
+                }      
+           });
         }
     }
 
@@ -384,6 +416,7 @@ $idTema = $dadosPartida[1]['id_tema'];
                     DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario']);
                     DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario']);
 
+                    dataHoraServidor = new Date(retorno['datahoraservidor']);
                     id_usuario = retorno['sala'][1]['id_usuario'];
                     id_adversario = retorno['sala'][1]['id_adversario'];
                     id_palavra = retorno['sala'][1]['id_palavra'];
@@ -393,8 +426,12 @@ $idTema = $dadosPartida[1]['id_tema'];
                     nome_usuario = retorno['usuario'][1]['login'];
                     DesenhaNomeJogador('nome_desafiado',nome_usuario);
 
+                    ultimaAtualizacaoSala = new Date(retorno['sala'][1]['ultima_atualizacao']);
+                    ultimaInteraçãoUsuario = new Date(retorno['usuario'][1]['ultima_interacao']);
+
                     if(id_adversario!=0){
                         nome_adversario = retorno['adversario'][1]['login'];
+                        ultimaInteraçãoAdversario = new Date(retorno['adversario'][1]['ultima_interacao']);
                         DesenhaNomeJogador('nome_desafiante',nome_adversario);
                     }
 
