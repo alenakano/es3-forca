@@ -103,7 +103,9 @@ $idTema = $dadosPartida[1]['id_tema'];
     var nome_adversario = "";
     var nome_usuario = "";
     var id_usuario = 0;
+    var id_personagem_usuario = 0;
     var id_adversario = 0;
+    var id_personagem_adversario = 0;
     var id_palavra = 0;
     var id_vencedor = 0;
     var id_jogador_vez = 0;
@@ -366,14 +368,13 @@ $idTema = $dadosPartida[1]['id_tema'];
 
     }
 
-    function DesenhaForca(id,erros){
+    function DesenhaForca(id,erros,idPersonagem){
         var b = document.getElementById(id);
         if(b.innerHTML.indexOf(erros+'.jpeg')==-1){
             var img = document.createElement('img');
             img.setAttribute('alt','Desafiante');
-            img.setAttribute('src','img/f'+erros+'.jpeg');
-            img.setAttribute('height','auto');
-            img.setAttribute('width','100%');
+            img.setAttribute('src','img/players/'+idPersonagem+'-'+erros+'.jpg');
+            img.setAttribute('class','img-forca');
 
             b.innerHTML = "";
             b.appendChild(img);
@@ -410,11 +411,9 @@ $idTema = $dadosPartida[1]['id_tema'];
 
                     var retorno = JSON.parse(response);
                      
-                    finaliza_sala = retorno['sala'][1]['sala_finalizada'];
-
-                                        
-                    DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario']);
-                    DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario']);
+                    finaliza_sala = retorno['sala'][1]['sala_finalizada'];                                     
+                    
+                    
 
                     dataHoraServidor = new Date(retorno['datahoraservidor']);
                     id_usuario = retorno['sala'][1]['id_usuario'];
@@ -424,6 +423,8 @@ $idTema = $dadosPartida[1]['id_tema'];
                     id_jogador_vez = retorno['sala'][1]['id_jogador_vez'];
                     
                     nome_usuario = retorno['usuario'][1]['login'];
+                    id_personagem_usuario = retorno['usuario'][1]['id_personagem'];
+                    DesenhaForca('imagem_desafiado',retorno['sala'][1]['erros_usuario'],id_personagem_usuario);
                     DesenhaNomeJogador('nome_desafiado',nome_usuario);
 
                     ultimaAtualizacaoSala = new Date(retorno['sala'][1]['ultima_atualizacao']);
@@ -431,8 +432,13 @@ $idTema = $dadosPartida[1]['id_tema'];
 
                     if(id_adversario!=0){
                         nome_adversario = retorno['adversario'][1]['login'];
+                        id_personagem_adversario = retorno['adversario'][1]['id_personagem'];
                         ultimaInteraçãoAdversario = new Date(retorno['adversario'][1]['ultima_interacao']);
                         DesenhaNomeJogador('nome_desafiante',nome_adversario);
+                        DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario'],id_personagem_adversario);
+                    }
+                    else{
+                        DesenhaForca('imagem_desafiante',retorno['sala'][1]['erros_adversario'],0);
                     }
 
                     credito = 0;
@@ -565,7 +571,8 @@ $idTema = $dadosPartida[1]['id_tema'];
     }
 
     function NovaPartida(){
-        if(id_adversario==0){
+        window.location.href = "menu.php";
+        /*if(id_adversario==0){
             window.location.href = "menu.php";
         }
         else{
@@ -580,14 +587,14 @@ $idTema = $dadosPartida[1]['id_tema'];
                     {
                     /*window.alert(response);
                     /*location.reload(); */
-                        location.href = "sala.php"; 
+                     /*   location.href = "sala.php"; 
                     }      
                 }); 
             }
             else{
                 window.location.href = "menu.php";   
             }
-        }
+        }*/
     }
   
 </script>

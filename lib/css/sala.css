@@ -257,3 +257,11 @@
     border-color: #8B795E; 
     vertical-align:middle;
 }
+
+.img-forca{
+     height: auto;
+     width: 100%;
+     border-style: solid;
+     border-top-width: 5px;
+    border-image: url(../../img/corda.jpg) 5 / 5px repeat;     
+}

@@ -24,53 +24,24 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
 
 <!-- CSS de estilo de elementos do menu -->
 <link rel="stylesheet" type="text/css" href="./lib/css/menu.css">
-
-<div class="container">       
-
-    <div class="dashboard">
-        <div class="row" style="text-align: center;vertical-align: middle;height: 50px;padding-top: 3px; border-bottom: solid;border-width: 1px;border-color: #8B795E;padding-left: 10px;border-radius: 15px;" >
-            <div class="col-sm-4 title">                           
-                    Salas Disponiveis:            
+<div class="container"  style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">
+    <div class="dashboard" align="center">
+            <div class="row" style="text-align: center;vertical-align: middle;height: 50px;padding-top: 3px; border-bottom: solid;border-width: 1px;border-color: #8B795E;padding-left: 10px;border-radius: 15px;" >
+                    <div class="col-sm-4 title">                           
+                            Salas Disponiveis:            
+                    </div>
+                    <div class="col-sm-7 title2" style="text-align: right">                
+                            <button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
+                            &nbsp;<button class="btn btn-danger" onclick="window.location.href='ranking.php';">Ranking</button>
+                    </div>       
             </div>
-            <div class="col-sm-7 title2" style="text-align: right">                
-                    <button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
-                    &nbsp;<button class="btn btn-danger" onclick="window.location.href='ranking.php';">Ranking</button>
-            </div>       
-        </div>         
-        <br>
-        <div">            
-        <?php $i = 1; while($i <= count($dadosSessao)): ?>
-        
-            <style>
-                .jogo-img<?=$i?>
-                {
-                    background-image: url("https://i.ytimg.com/vi/bWghPe5YB7g/maxresdefault.jpg");
-                }
-
-                .jogo-img<?=$i?>:hover
-                {
-                    background-image: url("http://93fm.radio.br/wp-content/uploads/2018/12/musicas.jpg");   
-                }
-            </style>
-
-        <?php if($dadosSessao[$i]['privada'] == 'n'):?>
-            <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>,<?=$dadosSessao[$i]['id_usuario']?>,<?=$dadosSessao[$i]['id_tema']?>)" align="center">
-                Tema: <?=strtoupper($dadosSessao[$i]['tema'])?> <br>
-                Criador: <?=strtoupper($dadosSessao[$i]['login'])?> <br>
-                (Publico)
-            </div>
-        <?php else:?>
-            <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>,<?=$dadosSessao[$i]['id_usuario']?>,<?=$dadosSessao[$i]['id_tema']?> ,'<?=$dadosSessao[$i]['senha_sala']?>')" align="center">
-                Tema: <?=strtoupper($dadosSessao[$i]['tema'])?> <br>
-                Criador: <?=strtoupper($dadosSessao[$i]['login'])?> <br>
-                (Privado)
-            </div>
-        <?php endif?>
-
-        <?php $i++; endwhile?>
+                     
+        <div id="SalasDisponiveis" style="padding-top:10px;">
         </div>
+        <div>
+        </div>  
     </div>
-</div>
+<div>
 
 <!-- Modal -->
 <div class="modal fade" id="criarSalaModal" tabindex="-1" role="dialog" aria-labelledby="criarSalaModalTitulo" aria-hidden="true">
@@ -111,6 +82,13 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
   </div>
 </div>
 <script type="text/javascript">
+        //função que atualiza salas
+        carrega();
+        var tempo = window.setInterval(carrega, 2000);
+        function carrega()
+        {
+        $('#SalasDisponiveis').load("lib/php/atualizaSala.php");
+        }
 
     var credito = "<?php echo $creditos?>";
     var qtdVitorias = "<?php echo $qtdVitorias?>";

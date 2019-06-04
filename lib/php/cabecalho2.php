@@ -26,7 +26,7 @@
                     &nbsp;
                     &nbsp;
                     &nbsp;                  
-                    <a href="#">Perfil</a>
+                    <a href="perfil.php">Perfil</a>
                     &nbsp;
                     &nbsp;
                     &nbsp;                  

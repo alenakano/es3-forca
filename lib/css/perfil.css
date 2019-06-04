@@ -1,0 +1,33 @@
+
+.nav
+{
+    cursor: default;
+    overflow: hidden;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 21px;
+    background-size: cover;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+    display: inline-block;
+    background-color: #DEB887;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+.nav:hover
+{
+	background-color: #AC9887;
+}
+
+.letras
+{
+    font-weight: bold;
+    font-size: 20px;        
+    border-color: black;
+}
+.nomepersonagem
+{
+    font-weight: bold;
+    font-size: 28px;        
+    border-color: black;
+}
