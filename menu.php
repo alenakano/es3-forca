@@ -121,7 +121,7 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
                 }
                 else
                 {
-                    EntrarSala(idSala,idOutroJogador);    
+                    EntrarSala(idSala,idOutroJogador,idTema);    
                 }
             }
             else
@@ -158,8 +158,13 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
             success: function(response)
             {
                 /*window.alert(response);
-                /*location.reload();*/ 
-                location.href = "sala.php";
+                /*location.reload();*/
+                if(response == 1){
+                    window.alert("Sala já Ocupada");
+                }
+                else{
+                    location.href = "sala.php";    
+                }                 
             }      
        }); 
     }

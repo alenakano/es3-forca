@@ -23,6 +23,55 @@ $idTema = $dadosPartida[1]['id_tema'];
 <!-- CSS de estilo de elementos da sala do jogo -->
 <link rel="stylesheet" type="text/css" href="./lib/css/sala.css">
 
+<audio id="som_partida">
+    <source src="sound/partida.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_espera">
+    <source src="sound/espera.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_derrota">
+    <source src="sound/derrota.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_vitoria">
+    <source src="sound/vitoria.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_relogio">
+    <source src="sound/relogio.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_alerta_acerto">
+    <source src="sound/alerta_acerto.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_alerta_erro">
+    <source src="sound/alerta_erro.ogg" type="audio/ogg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_corvo">
+    <source src="sound/corvo.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_moeda">
+    <source src="sound/moeda.mp3" type="audio/mpeg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
+
+<audio id="som_sangue">
+    <source src="sound/sangue.ogg" type="audio/ogg">
+    Seu navegador não possui suporte ao elemento audio
+</audio>
 
 <div class="container" style="margin-top:0px;padding-top: 0px">
     <div class="dashboard col-sm-12" align="center" style="margin-top:0px; margin-bottom:0px;">
@@ -90,9 +139,13 @@ $idTema = $dadosPartida[1]['id_tema'];
     </div>
 </div>
 
+
+<script src="./lib/js/som.js"></script>
 <script src="./lib/js/timer.js"></script>
 
+
 <script type="text/javascript">
+    som_espera_play();
     var tempo_timer = 5;
     var refresher;
     var finalizador;
@@ -128,9 +181,10 @@ $idTema = $dadosPartida[1]['id_tema'];
     AtualizaTela();
 
 
-    function ApagaTimer(){
+    function ApagaTimer(){        
         var d = document.getElementById('timer');
         d.innerHTML = "";
+        parar();
     }
 
     function DesenhaTimer(segundos){
@@ -151,7 +205,13 @@ $idTema = $dadosPartida[1]['id_tema'];
         var d = document.getElementById('centro');
         d.innerHTML = "";
         if(idVencedor!=0){
+            som_espera_stop();
+            som_partida_stop();
+            som_corvo_stop();
+            som_alerta_erro_stop();
+            som_alerta_acerto_stop();
             if(idVencedor==idJogador){
+                som_vitoria_play();
                 var texto = document.createElement('p');
                 texto.setAttribute('class','letras-vit_det');
                 texto.innerHTML = "Você venceu!";
@@ -159,6 +219,7 @@ $idTema = $dadosPartida[1]['id_tema'];
                 FinalizaSala(3500);
             }
             else{
+                som_derrota_play();
                 var texto = document.createElement('p');
                 texto.setAttribute('class','letras-vit_det');
                 texto.innerHTML = "Você perdeu!"; 
@@ -178,6 +239,10 @@ $idTema = $dadosPartida[1]['id_tema'];
 
             }
             else{
+                if(tempo_som_partida()==0){
+                    som_espera_stop();
+                    som_partida_play();
+                }
                 if(idJogadorVez!=idJogador){
                     var texto = document.createElement('p');
                     texto.setAttribute('class','letras-waiting-play');
@@ -370,14 +435,23 @@ $idTema = $dadosPartida[1]['id_tema'];
 
     function DesenhaForca(id,erros,idPersonagem){
         var b = document.getElementById(id);
-        if(b.innerHTML.indexOf(erros+'.jpeg')==-1){
+        if(b.innerHTML.indexOf(erros+'.png')==-1){
             var img = document.createElement('img');
             img.setAttribute('alt','Desafiante');
-            img.setAttribute('src','img/players/'+idPersonagem+'-'+erros+'.jpg');
+            img.setAttribute('src','img/players/'+idPersonagem+'-'+erros+'.png');
             img.setAttribute('class','img-forca');
 
             b.innerHTML = "";
             b.appendChild(img);
+            if(erros>0){
+                
+                if(erros>3){
+                    som_sangue_play();
+                }
+                else{
+                    som_corvo_play();    
+                }
+            }
         }
         
     }
@@ -396,7 +470,7 @@ $idTema = $dadosPartida[1]['id_tema'];
         idSala = "<?php echo $dadosPartida[1]['id_sala']; ?>";
         letras_escolhidas = "";
         nome_adversario = "";
-        nome_usuario = "";  
+        nome_usuario = ""; 
         var cabec = {idSala: idSala};    
             $.ajax({
                 type: "post",
@@ -411,8 +485,7 @@ $idTema = $dadosPartida[1]['id_tema'];
 
                     var retorno = JSON.parse(response);
                      
-                    finaliza_sala = retorno['sala'][1]['sala_finalizada'];                                     
-                    
+                    finaliza_sala = retorno['sala'][1]['sala_finalizada'];
                     
 
                     dataHoraServidor = new Date(retorno['datahoraservidor']);
@@ -493,8 +566,18 @@ $idTema = $dadosPartida[1]['id_tema'];
     
     function VerificarLetra(letra)
     {
+
         if(letra!=''){
             parar();
+            if(palavra.indexOf(letra) >= 0){
+                som_alerta_acerto_play();
+            }
+            else{
+                som_alerta_erro_play();    
+            }
+        }
+        else{
+            som_alerta_erro_play();
         }
         var cabec = {idSala: idSala,idJogador: id_sessao,letra: letra};   
         $.ajax({
@@ -523,6 +606,7 @@ $idTema = $dadosPartida[1]['id_tema'];
             success: function(response)
             {
                /*window.alert(response);*/
+               som_moeda_play();
         		AtualizaTela();        
             }      
         });

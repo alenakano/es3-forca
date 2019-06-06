@@ -16,6 +16,7 @@
 }
 .nav:hover
 {
+	cursor: default;
 	background-color: #AC9887;
 }
 

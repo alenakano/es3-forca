@@ -56,7 +56,7 @@ $id_personagem = $dadosJogador[1]['id_personagem'];
 				</button>
 			</div>
 			<div class="col-sm-4 title">
-				<img id="personagem">
+				<img id="personagem" width="auto" height="240px" align="center">
 			</div>
 			<div class="col-sm-2 title">
 				<br>
@@ -79,7 +79,7 @@ $id_personagem = $dadosJogador[1]['id_personagem'];
 </div>
 
 <script type="text/javascript">
-	var personagens = new Array('Vitor','Arnaldo','Shigeo');
+	var personagens = new Array('Victor');
 	var qtd = personagens.length-1;
     var credito = "<?php echo $creditos?>";
     var qtdVitorias = "<?php echo $qtdVitorias?>";
@@ -111,7 +111,7 @@ $id_personagem = $dadosJogador[1]['id_personagem'];
 
     	var img = document.getElementById('personagem');
            
-        img.setAttribute('src','img/players/'+posicao+'.jpg');
+        img.setAttribute('src','img/players/'+posicao+'.png');
         img.setAttribute('class','img-forca');
         var nome = document.getElementById('nome_personagem');
         nome.innerHTML = personagens[posicao]; 

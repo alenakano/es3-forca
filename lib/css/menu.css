@@ -1,5 +1,6 @@
 
     .jogo{
+        cursor: default;
         text-align: center;        
         color: white;
         height: 20%;
@@ -17,6 +18,7 @@
     }
 
     .jogo:hover{
+        cursor: default;
         color: black;
         text-shadow: 1px 1px 1px black;
         -webkit-filter: sepia(100%);
