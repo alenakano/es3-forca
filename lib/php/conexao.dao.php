@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class Conexao
 {	
 	//atributos de banco de dados
@@ -6,7 +6,7 @@ class Conexao
 	private static $servidorUsuario;
 	private static $servidorSenha;
 	private static $servidorBancoDeDados;	
-	private static $porta = '3308';
+	private static $porta = '3306';
 	public static $conexao;
 	private static $dbCharSet;
 	private static $erroDeConexao = null;
@@ -78,7 +78,7 @@ class Conexao
 		}
 
 		//self::SetAtributoBD("devdatabase.mysql.dbaas.com.br", "devdatabase", "Bolado@123", "devdatabase");
-		self::SetAtributoBD("127.0.0.1:".self::$porta, "root", "r78978rrrdqr", "devdatabase");
+		self::SetAtributoBD("127.0.0.1:".self::$porta, "root", "senha", "devdatabase");
 
 		self::SetConexao();
 

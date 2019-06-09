@@ -1,13 +1,14 @@
 <?php 
 session_start();
 include("conexao.dao.php");
+include_once("atualiza-logs.php");
 
 if(isset($_REQUEST['login'], $_REQUEST['senha']))
 {
     $login = $_REQUEST['login'];
     $senha = md5($_REQUEST['senha']);
 
-    $sqlLogin = "SELECT * FROM forca_usuario U, forca_score S WHERE U.LOGIN = ?0 AND U.SENHA = ?1 AND U.ID_USUARIO = S.ID_USUARIO";
+    $sqlLogin = "SELECT * FROM forca_usuario U WHERE U.LOGIN = ?0 AND U.SENHA = ?1";
 
     $parametros = array($login, $senha);
 
@@ -25,7 +26,6 @@ if(isset($_REQUEST['login'], $_REQUEST['senha']))
         $_SESSION['user']['nome'] = $dados[$linha]['nome'];
         $_SESSION['user']['login'] = $dados[$linha]['login'];
         $_SESSION['user']['perfil'] = $dados[$linha]['perfil'];
-        $_SESSION['user']['score'] = $dados[$linha]['score'];
         
         if($_SESSION['user']['perfil'] == "adm")
         {
@@ -36,6 +36,9 @@ if(isset($_REQUEST['login'], $_REQUEST['senha']))
         {
             echo "pla";
         }
+        
+        Log::AtualizarJogador($_SESSION['user']['id_usuario']);
+        
     }
 }
 else

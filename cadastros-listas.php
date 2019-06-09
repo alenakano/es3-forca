@@ -1,277 +1,44 @@
 <?php
 include_once("lib/php/header.php");  
-include_once("lib/php/conexao.dao.php");
+include_once("lib/php/cabecalho2.php");
+include_once("lib/php/querys.php");
 
 if(!isset($_SESSION['user']))
 {
 	echo "<script>location.href = 'index.php';</script>";
 }
 
-$sqlListaTema = "SELECT * FROM forca_tema ORDER BY TEMA ASC";
-$sqlListaPalavra = "SELECT * FROM forca_palavra p, forca_tema t WHERE t.ID_TEMA = p.ID_TEMA ORDER BY PALAVRA ASC";
-$sqlUsuario = "SELECT * FROM forca_usuario";
+if($_SESSION['user']['perfil'] != "adm")
+{	
+	echo "<script>location.href = 'menu.php';</script>";
+}
 
-$dadosTema = Conexao::ExecutarQuery($sqlListaTema);
-$dadosPalavra = Conexao::ExecutarQuery($sqlListaPalavra);
-$dadosUsuario = Conexao::ExecutarQuery($sqlUsuario);
+$dadosTema = Busca::listaTemas();
+$dadosPalavra = Busca::listaPalavras();
+$dadosUsuario = Busca::listaUsuarios();
+
+$creditos = $dadosUsuario[$_SESSION['user']['id_usuario']]['creditos'];
+$qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
+
 ?>
 
-<script>
-	function RealizarCadastro(tipoCadastro = null)
-	{
-		if(tipoCadastro == 'tema')
-		{
-			var tema = $("input[name='tema']").val()
-			{
-				if(tema == "")
-				{
-					window.alert("É preciso digitar um tema para cadastra-lo. \nDigite um tema e tente novamente");
-					return 0;
-				}
+<script src="./lib/js/cadastro-listas.js"></script>
 
-				$.ajax({
-					type: "post",
-					async: "true",
-					data: $("#formCadastroTema").serialize(),
-					url: "lib/php/cadastro-tema.php",
-					success: function(response)
-					{
-						if(response == 0)
-						{
-							window.alert("É preciso digitar um tema para cadastra-lo. \nDigite um tema e tente novamente")
-						}
-						else
-						{
-							window.alert(response);
-							location.reload();
-						}
-					}
-				});
-			}
-		}
-
-		if(tipoCadastro == 'palavra')
-		{			
-			var tema = $("select[name='tema']").val();
-			var palavra = $("input[name='palavra']").val();
-			var dicas = $("textarea[name='dicas']").val();
-
-			if(tema == 0 || palavra == "" || dicas == "")
-			{
-				window.alert("Todos os campos são obrigatórios. Preencha todos os campos e tente novamente.");
-				return 0;
-			}
-
-			$.ajax({
-				type: "post",
-				async: "true",
-				data: "id_tema="+tema+"&palavra="+palavra+"&dicas="+dicas,
-				url: "lib/php/cadastro-palavra.php",
-				success: function(response)
-				{
-					if(response == 0)
-					{
-						window.alert("Todos os campos são obrigatórios. Preencha todos os campos e tente novamente.")
-					}
-					else
-					{
-						window.alert(response);
-						location.reload();
-					}
-				}
-			});
-		}
-	}
-
-	function AbrirTelaAtualilacao(dados, tipoRegistro = null)
-	{
-		if(tipoRegistro == "tema")
-		{
-			var idTema = dados[0];
-			var tema = dados[1];
-
-			$("#idTemaUpdate").val(idTema);
-			$("#temaUpdate").val(tema);
-
-			$("#UpdateTema").modal();
-		}
-		
-		if(tipoRegistro == null)
-		{
-			var idPalavra = dados[0];
-			var palavra = dados[1];
-			var idTema = dados[2];
-			var tema = dados[3];
-			var dicas = dados[4];
-
-			$("#idPalavraUpdate").val(idPalavra);
-			$("#palavraUpdate").val(palavra);
-			//$("#palavraUpdate").val(tema);
-			$("#dicasUpdate").val(dicas);
-
-			$("#UpdatePalavra").modal();
-		}
-	}
-
-	function AlterarRegistro(tipoRegistro = null)
-	{
-		if(tipoRegistro == "tema")
-		{
-			var idTema = $("#idTemaUpdate").val();
-			var novoTema = $("#temaUpdate").val();
-
-			if(novoTema == "")
-			{
-				window.alert("Nenhum tema digitado. Insira um tema e tente novamente");
-				return false;
-			}
-			
-			$.ajax({
-				type: 'post',
-				async: "true",
-				url: "lib/php/alterar-tema.php",
-				data: "tema="+novoTema+"&id_tema="+idTema,
-				success: function(response)
-				{
-					if(response == 0)
-					{
-						window.location("Nenhum tema digitado, Insira um tema e tente novamente");
-					}
-					else
-					{
-						window.alert(response);
-						location.reload();
-					}
-				}
-			});
-		}
-
-		if(tipoRegistro == null)
-		{
-			var idTema = $("#temaPalavraUpdate").val();
-			var palavra = $("#palavraUpdate").val();
-			var idPalavra = $("#idPalavraUpdate").val();
-			var dicas = $("#dicasUpdate").val();
-
-			if(palavra == "" || idTema == 0 || dicas == "")
-			{
-				window.alert("Todos os campos são obrigatórios. Digite todas as informações e tente novamente.");
-				return 0;
-			}
-
-			$.ajax({
-				type: 'post',
-				async: "true",
-				url: "lib/php/alterar-palavra.php",
-				data: "id_tema="+idTema+"&palavra="+palavra+"&id_palavra="+idPalavra+"&dicas="+dicas,
-				success: function(response)
-				{
-					if(response == 0)
-					{
-						window.location("Nenhum tema digitado, Insira um tema e tente novamente");
-					}
-					else
-					{
-						window.alert(response);
-						location.reload();
-					}
-				}
-			});
-		}
-	}
-
-	function DeletarRegistor(idRegistro, tipoRegistro = null)
-	{
-		if(tipoRegistro == "tema")
-		{
-			if(window.confirm("Atenção: Deletando este tema, você deletará também todas as palavras relacionadas a ele. Tem certeza que deseja continuar?"))
-			{
-				$.ajax({
-					type: "post",
-					async: "true",
-					data: "id_tema=" + idRegistro,
-					url: "lib/php/deletar-tema.php",
-					success: function(response)
-					{
-						window.alert(response);
-						location.reload();
-					}
-				});
-			}
-			else
-			{
-				return 0;
-			}
-		}
-		else
-		{
-			$.ajax({
-				type: "post",
-				async: "true",
-				data: "id_palavra=" + idRegistro,
-				url: "lib/php/deletar-palavra.php",
-				success: function(response)
-				{
-					window.alert(response);
-					location.reload();
-				}
-			});
-		}
-	}
-
-	function AbrirMenu()
-	{
-		location.href = "menu.php";
-	}
-
-	function HabilitarAdministrador(idUsuario)
-	{
-		$.ajax({
-			type: "post",
-			async: "true",
-			data: "id_usuario=" + idUsuario,
-			url: "lib/php/tornar-administrador.php",
-			success: function(response)
-			{
-				window.alert(response);
-				location.reload();
-			}
-		});
-	}
-
-	function DeletarUsuario(idUsuario)
-	{
-		$.ajax({
-			type: "post",
-			async: "true",
-			data: "id_usuario=" + idUsuario,
-			url: "lib/php/deletar-usuario.php",
-			success: function(response)
-			{
-				window.alert(response);
-				location.reload();
-			}
-		});
-	}
-</script>
-
-<body>
-
-<div class="container dashboard" style="margin-top: 2%; ">
-	<div class="row">
-		<div class="col-sm-12">
-			<span>Bem vindo administrador <?=$_SESSION['user']['nome']?> </span>&nbsp;&nbsp;
-			<a href="lib/php/logout.php">Sair</a> &nbsp;&nbsp;
-			<a href="#">Perfil</a>&nbsp;&nbsp;
-			<button class="btn btn-success" style="padding: 4px;" onclick="AbrirMenu();">Menu Principal</button>
-		</div>
-	</div>
-</div>
-<br>
-
-<div class="container dashboard">
-	<div class="row">
-		<div class="col-sm-3">
+<!-- CSS de estilo de elementos do menu -->
+<link rel="stylesheet" type="text/css" href="./lib/css/menu.css">
+<div class="container"  style="padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;">
+    <div class="dashboard" align="center">
+            <div class="row" style="text-align: center;vertical-align: middle;height: 50px;padding-top: 3px; border-bottom: solid;border-width: 1px;border-color: #8B795E;padding-left: 10px;border-radius: 15px;" >
+                    <div class="col-sm-6 title">                           
+                            Bem vindo administrador <?=$_SESSION['user']['nome']?>             
+                    </div>
+                    <div class="col-sm-4 title2" style="text-align: right">                
+                            <button class="btn btn-success" onclick="AbrirMenu();">Menu Principal</button>
+                    </div>       
+            </div>
+                     
+        <div class="row" style="padding-top:10px;">
+        	<div class="col-sm-3">
 			<button class="btn btn-primary" style="width: 100%;" id="btnTema">Cadastro de Tema</button><br><br>
 			<button class="btn btn-primary" style="width: 100%;" id="btnTemaLista">Listar Temas</button><br><br>
 			<button class="btn btn-primary" style="width: 100%;" id="btnPalavra">Cadastro de palavra</button><br><br>
@@ -423,6 +190,12 @@ $dadosUsuario = Conexao::ExecutarQuery($sqlUsuario);
 		</div>
 	</div>
 </div>
+        </div>
+        <div>
+        </div>  
+    </div>
+<div>
+		
 
 
 <!-- Modal -->
@@ -490,3 +263,10 @@ $dadosUsuario = Conexao::ExecutarQuery($sqlUsuario);
   </div>
 </div>
 <br><br>
+<script type="text/javascript">
+	var credito = "<?php echo $creditos?>";
+    var qtdVitorias = "<?php echo $qtdVitorias?>";
+
+    DesenhaCredito(credito);
+    DesenhaVitorias(qtdVitorias);
+</script>
