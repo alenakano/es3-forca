@@ -31,7 +31,7 @@
                     &nbsp;
                     &nbsp;                  
                         <?php if($_SESSION['user']['perfil'] == "adm"):?>
-                            <a href="cadastros-listas.php">Painel Administrativo</a>                                 
+                            <a href="cadastros-listas.php">Painel Adm.</a>                                 
                         <?php endif?>                            
                 </div>  
                 <?php endif?>                      

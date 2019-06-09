@@ -210,7 +210,7 @@
     font-size: 20px;
     font-weight: bold; 
         -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: #333333;
+        -webkit-text-stroke-color: #000;
         background: -webkit-linear-gradient(#8B795E, #000000);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -221,11 +221,11 @@
     font-size: 20px;
     font-weight: bold; 
         -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: #CCCCCC;
-        background: -webkit-linear-gradient(#888888, #FFFFFF);
+        -webkit-text-stroke-color: #000;
+        background: -webkit-linear-gradient(#DDD, #FFF);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-shadow: 2px 0px 2px #000000;
+        text-shadow: 1px 0px 1px #000000;
 }
 
 

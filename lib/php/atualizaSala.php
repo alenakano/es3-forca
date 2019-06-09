@@ -23,17 +23,16 @@ while($i <= count($dadosSessao)){
                     background-image: url("img/themes/<?php echo $dadosSessao[$i]['id_tema']?>.jpg");
                 }
                 (<?=$dadosSessao[$i]['id_tema']?>
-                /*.jogo-img<?=$i?>:hover
-                {
-                    background-image: url("https://img.freepik.com/fotos-gratis/fundo-do-interior-com-uma-parede-do-grunge-e-assoalho_1048-3834.jpg?size=338&ext=jpg");
-                }*/
+                
                  
                 
             </style>
          
         <?php if($dadosSessao[$i]['privada'] == 'n'):?>
             <div class="jogo jogo-img<?=$i?>" onclick="SelecionarSala(<?=$dadosSessao[$i]['id_sala']?>,<?=$dadosSessao[$i]['id_usuario']?>,<?=$dadosSessao[$i]['id_tema']?>)" align="center">
-                Tema: <?=strtoupper($dadosSessao[$i]['tema'])?> <br>
+                Tema:
+                <br>
+                 <?=strtoupper($dadosSessao[$i]['tema'])?> <br>
                 Criador: <?=strtoupper($dadosSessao[$i]['login'])?> <br>
                 (Publico)
             </div>

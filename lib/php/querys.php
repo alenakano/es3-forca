@@ -112,6 +112,24 @@ class Busca
         return Conexao::ExecutarQuery($sqlRanking);    
     }
 
+    public static function listaTemas(){
+        $sqlListaTema = 
+            "SELECT * FROM forca_tema ORDER BY TEMA ASC";
+        return Conexao::ExecutarQuery($sqlListaTema);    
+    }
+
+    public static function listaPalavras(){
+        $sqlListaPalavra = 
+            "SELECT * FROM forca_palavra p, forca_tema t WHERE t.ID_TEMA = p.ID_TEMA ORDER BY PALAVRA ASC";   
+        return Conexao::ExecutarQuery($sqlListaPalavra);    
+    }
+
+    public static function listaUsuarios(){
+        $sqlUsuario = 
+            "SELECT * FROM forca_usuario";
+        return Conexao::ExecutarQuery($sqlUsuario);    
+    }
+
 }
 
 ?>

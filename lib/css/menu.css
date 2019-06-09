@@ -11,7 +11,10 @@
         width: 32%;
         background-size: cover;
         border-radius: 10px;
-        text-shadow: 2px 2px 2px black;
+        text-shadow: 2px 0px 0px black, 
+                 -2px 0px 0px black, 
+                 0px 2px 0px black, 
+                 0px -2px 0px black;
         transition-duration: 0.4s;
         display: inline-block;
         background-size: 100% 100%;
@@ -20,7 +23,10 @@
     .jogo:hover{
         cursor: default;
         color: black;
-        text-shadow: 1px 1px 1px black;
+        text-shadow: 2px 0px 0px white, 
+                 -2px 0px 0px white, 
+                 0px 2px 0px white, 
+                 0px -2px 0px white;
         -webkit-filter: sepia(100%);
         -moz-filter: sepia(100%);
         -ms-filter: sepia(100%);

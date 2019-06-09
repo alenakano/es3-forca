@@ -79,7 +79,7 @@ $id_personagem = $dadosJogador[1]['id_personagem'];
 </div>
 
 <script type="text/javascript">
-	var personagens = new Array('Victor');
+	var personagens = new Array('Victor','Victoria','Jovem Victor','Arnaldão','Grace');
 	var qtd = personagens.length-1;
     var credito = "<?php echo $creditos?>";
     var qtdVitorias = "<?php echo $qtdVitorias?>";

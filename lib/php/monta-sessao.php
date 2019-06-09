@@ -19,7 +19,7 @@ $dadosSessao = Conexao::ExecutarQuery($sql);
 
 //var_dump($dadosSessao);
 
-$sqlTema = "SELECT * FROM forca_tema a INNER JOIN forca_palavra b ON a.id_tema = b.id_tema";
+$sqlTema = "SELECT * FROM forca_tema a LEFT JOIN forca_palavra b ON a.id_tema = b.id_tema GROUP BY a.id_tema";
 $dadosTema = Conexao::ExecutarQuery($sqlTema);
 
 $dadosJogador = Busca::BuscaJogador($_SESSION['user']['id_usuario']);
