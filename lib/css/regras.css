@@ -1,0 +1,31 @@
+.letras
+{
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 14px;                         
+    display: inline-block;        
+    color: black;
+        
+}
+.letras-menores
+{
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 12px;                         
+    display: inline-block;        
+    color: black;
+        
+}
+.letras-grandes
+{
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 22px;                         
+    display: inline-block;        
+    color: black;
+    align-self: center;
+    position: absolute;
+    left:50%;
+    transform: translate(-50%,-50%);
+        
+}
