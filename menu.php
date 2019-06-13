@@ -32,7 +32,10 @@ $qtdVitorias = Busca::QtdVitorias($_SESSION['user']['id_usuario']);
                     </div>
                     <div class="col-sm-7 title2" style="text-align: right">                
                             <button class="btn btn-success" onclick="AbrirCriacaoSala()">Criar Nova Sala</button>
-                            &nbsp;<button class="btn btn-danger" onclick="window.location.href='ranking.php';">Ranking</button>
+                            &nbsp;
+                            <button class="btn btn-danger" onclick="window.location.href='ranking.php';">Ranking</button>
+                            &nbsp;
+                            <button class="btn btn-danger" onclick="window.location.href='regras.php';">Como Jogar?</button>
                     </div>       
             </div>
                      

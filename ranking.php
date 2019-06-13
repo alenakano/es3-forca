@@ -25,7 +25,6 @@ $ranking = Busca::leRanking();
 ?>
 
 <!-- CSS de estilo de elementos do menu -->
-<link rel="stylesheet" type="text/css" href="./lib/css/menu.css">
 
 <div class="container">       
 
@@ -36,6 +35,8 @@ $ranking = Busca::leRanking();
             </div>
             <div class="col-sm-7 title2" style="text-align: right">                
                 	<button class="btn btn-danger" onclick="window.location.href='menu.php';">SALAS</button>
+                	&nbsp;
+                	<button class="btn btn-danger" onclick="window.location.href='regras.php';">COMO JOGAR?</button>
             </div>       
         </div>                      
 			<div class="row" style="padding-top: 10px;padding-left: 10px;padding-right: 10px;">
@@ -46,18 +47,21 @@ $ranking = Busca::leRanking();
 								<tr>
 									<td style="color: black; background-color: white;" align="left">Melhores Jogadores</td>
 									<td style="color: black; background-color: white;"></td>
+									<td style="color: black; background-color: white;"></td>
 									</tr>
 									<tr>
+										<td align="left">Posição:</td>
 										<td align="left">Nickname do Jogador:</td>
-										<td align="center">Pontuação:</td>
+										<td align="center">Vitórias:</td>
 									</tr>
 								</thead>
 								<tbody>
 								<?php $contScore = 1; while($contScore <= count($ranking)):?>
 								<tr>
+									<td><?=$contScore?></td>
 									<td><?=$ranking[$contScore]['login']?></td>
-										<td align="center"><?=$ranking[$contScore]['vitorias']?> vitórias</td>
-									</tr>
+									<td align="center"><?=$ranking[$contScore]['vitorias']?></td>
+								</tr>
 								<?php $contScore++; endwhile ?>
 								</tbody>
 						</table>
