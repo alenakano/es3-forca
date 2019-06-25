@@ -14,6 +14,7 @@ This project was created by System Analysis students from FATEC-SP Brazil. This 
 * Kaleby Barbosa Jaun Rodrigues (https://github.com/KalebyJaun)
 * Naomi Cristina Tabata (https://github.com/na8na10)
 * Rafael Santana Arruda (https://github.com/rafaellsantanaa)
+* Renan Souza Rodrigues (https://github.com/itsmedallai)
 * Roberta Cristina Ruedas Martins (https://github.com/betacrisruedas)
 * Thiago Pena Guedes (https://github.com/kensaither)
 
@@ -42,6 +43,7 @@ Este projeto foi criado para a disciplina engenharia de software 3 com o objetiv
 * Kaleby Barbosa Jaun Rodrigues (https://github.com/KalebyJaun)q
 * Naomi Cristina Tabata (https://github.com/na8na10)
 * Rafael Santana Arruda (https://github.com/rafaellsantanaa)
+* Renan Souza Rodrigues (https://github.com/itsmedallai)
 * Roberta Cristina Ruedas Martins (https://github.com/betacrisruedas)
 * Thiago Pena Guedes (https://github.com/kensaither)
 
